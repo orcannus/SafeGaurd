@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeGuard · License Key Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0b0f0e;
+    --surface:   #111816;
+    --surface2:  #182320;
+    --border:    #1f3330;
+    --teal:      #2A7A6B;
+    --teal-bright: #3ecfb2;
+    --gold:      #f5c264;
+    --orange:    #ff6b35;
+    --red:       #e05252;
+    --text:      #e8f0ee;
+    --text-dim:  #7a9e98;
+    --text-faint:#3d5c57;
+    --free-col:  #3ecfb2;
+    --fam-col:   #f5c264;
+    --pro-col:   #ff6b35;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  /* grid bg */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(42,122,107,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42,122,107,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── LOGIN SCREEN ── */
+  #login-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .login-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 44px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 0 60px rgba(42,122,107,0.12), 0 0 0 1px var(--border);
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .login-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 60%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--teal-bright), transparent);
+  }
+
+  .login-logo {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .login-logo .shield {
+    font-size: 2.8rem;
+    display: block;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 12px rgba(62,207,178,0.4));
+  }
+  .login-logo h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .login-logo p {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 4px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .login-label {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .login-input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .login-input:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(42,122,107,0.2);
+  }
+  .login-input.error {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(224,82,82,0.15);
+    animation: shake 0.35s ease;
+  }
+
+  .login-btn {
+    width: 100%;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .login-btn:hover { background: var(--teal-bright); color: var(--bg); transform: translateY(-1px); }
+  .login-btn:active { transform: translateY(0); }
+
+  .login-error {
+    color: var(--red);
+    font-size: 0.78rem;
+    text-align: center;
+    margin-top: 14px;
+    min-height: 18px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── MAIN APP ── */
+  #app {
+    display: none;
+    width: 100%;
+    max-width: 860px;
+    padding: 40px 24px;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .app-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .app-header .shield { font-size: 2rem; filter: drop-shadow(0 0 10px rgba(62,207,178,0.35)); }
+  .app-header-text h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .app-header-text p {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .logout-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── CONTROLS ── */
+  .controls {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 28px;
+  }
+
+  .controls-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 620px) { .controls-row { grid-template-columns: 1fr; } }
+
+  .field label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+
+  .field select,
+  .field input[type="number"] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  .field select:focus,
+  .field input[type="number"]:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(42,122,107,0.2);
+  }
+
+  .select-wrap { position: relative; }
+  .select-wrap::after {
+    content: '▾';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    pointer-events: none;
+    font-size: 0.9rem;
+  }
+
+  .tier-badge {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .gen-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--teal) 0%, #1f5c50 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(42,122,107,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .gen-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transition: left 0.4s;
+  }
+  .gen-btn:hover::before { left: 100%; }
+  .gen-btn:hover { box-shadow: 0 6px 28px rgba(42,122,107,0.45); transform: translateY(-1px); }
+  .gen-btn:active { transform: translateY(0); }
+
+  /* ── KEY LIST ── */
+  .key-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .key-list-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .key-count {
+    background: var(--teal);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-left: 10px;
+  }
+
+  .action-btns {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .action-btn:hover { border-color: var(--teal-bright); color: var(--teal-bright); }
+  .action-btn.danger:hover { border-color: var(--red); color: var(--red); }
+
+  #key-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  #key-list::-webkit-scrollbar { width: 4px; }
+  #key-list::-webkit-scrollbar-track { background: transparent; }
+  #key-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .key-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    animation: slideIn 0.25s ease both;
+  }
+  .key-item:hover { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal); }
+
+  .key-tier-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .key-value {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .key-tier-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .key-tier-label.free  { background: rgba(62,207,178,0.12); color: var(--free-col); }
+  .key-tier-label.family { background: rgba(245,194,100,0.12); color: var(--fam-col); }
+  .key-tier-label.pro   { background: rgba(255,107,53,0.12); color: var(--pro-col); }
+
+  .key-copy-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+  }
+  .key-copy-btn:hover { border-color: var(--teal-bright); color: var(--teal-bright); }
+  .key-copy-btn.copied { border-color: var(--teal-bright); color: var(--teal-bright); }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    border: 1px dashed var(--border);
+    border-radius: 16px;
+  }
+  .empty-state .icon { font-size: 2rem; display: block; margin-bottom: 12px; opacity: 0.4; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--surface);
+    border: 1px solid var(--teal);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: 0.82rem;
+    color: var(--teal-bright);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    z-index: 999;
+    animation: toastIn 0.3s ease both;
+    letter-spacing: 0.05em;
+  }
+  .toast.hide { animation: toastOut 0.3s ease both; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%      { transform: translateX(-6px); }
+    40%      { transform: translateX(6px); }
+    60%      { transform: translateX(-4px); }
+    80%      { transform: translateX(4px); }
+  }
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes toastOut {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(10px); }
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(62,207,178,0.3); }
+    50%      { box-shadow: 0 0 0 8px rgba(62,207,178,0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <span class="shield">🛡️</span>
+      <h1>SafeGuard</h1>
+      <p>License Key Generator</p>
+    </div>
+    <label class="login-label" for="pw-input">Access Password</label>
+    <input type="password" id="pw-input" class="login-input" placeholder="Enter password" autocomplete="off" spellcheck="false">
+    <button class="login-btn" onclick="checkPassword()">Unlock →</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <div class="app-header">
+    <span class="shield">🛡️</span>
+    <div class="app-header-text">
+      <h1>SafeGuard KeyGen</h1>
+      <p>License Key Generator · Orcannus Technologies</p>
+    </div>
+    <button class="logout-btn" onclick="logout()">⏻ Lock</button>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="controls-row">
+      <div class="field">
+        <label>Plan Tier</label>
+        <div class="select-wrap">
+          <select id="tier-select">
+            <option value="FAM" selected>Family</option>
+            <option value="PRO">Pro</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Mode</label>
+        <div class="select-wrap">
+          <select id="mode-select" onchange="toggleBatchField()">
+            <option value="single">Single Key</option>
+            <option value="batch">Batch</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" id="batch-field" style="display:none;">
+        <label>Quantity</label>
+        <input type="number" id="batch-qty" value="10" min="1" max="100" placeholder="e.g. 10">
+      </div>
+      <div class="field" id="placeholder-field">
+        <label>&nbsp;</label>
+        <div style="height:44px;"></div>
+      </div>
+    </div>
+    <button class="gen-btn" onclick="generateKeys()">⚡ Generate Keys</button>
+  </div>
+
+  <!-- KEY LIST -->
+  <div class="key-list-header">
+    <h2>Generated Keys <span class="key-count" id="key-count">0</span></h2>
+    <div class="action-btns">
+      <button class="action-btn" onclick="copyAll()">Copy All</button>
+      <button class="action-btn danger" onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+
+  <div id="key-list">
+    <div class="empty-state">
+      <span class="icon">🔑</span>
+      No keys generated yet.<br>Configure options above and click Generate.
+    </div>
+  </div>
+</div>
+
+<script>
+  const PASSWORD = '3At$h1T&D13';
+  let keys = [];
+
+  // ── AUTH ──
+  function checkPassword() {
+    const val = document.getElementById('pw-input').value;
+    const input = document.getElementById('pw-input');
+    const errEl = document.getElementById('login-error');
+    if (val === PASSWORD) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+    } else {
+      input.classList.add('error');
+      errEl.textContent = 'Incorrect password. Access denied.';
+      setTimeout(() => input.classList.remove('error'), 600);
+      input.value = '';
+    }
+  }
+
+  function logout() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('login-error').textContent = '';
+  }
+
+  // Allow Enter key on login
+  document.getElementById('pw-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  // ── UI HELPERS ──
+  function toggleBatchField() {
+    const mode = document.getElementById('mode-select').value;
+    document.getElementById('batch-field').style.display = mode === 'batch' ? 'block' : 'none';
+    document.getElementById('placeholder-field').style.display = mode === 'batch' ? 'none' : 'block';
+  }
+
+  function tierColor(tier) {
+    return tier === 'FAM' ? 'var(--fam-col)' : 'var(--pro-col)';
+  }
+  function tierClass(tier) {
+    return tier === 'FAM' ? 'family' : 'pro';
+  }
+  function tierLabel(tier) {
+    return tier === 'FAM' ? 'Family' : 'Pro';
+  }
+
+  // ── KEY GENERATION ──
+  // Must match app validation:
+  //   Format: XXXX-XXXX-XXXX-XXXX (16 alphanum chars)
+  //   First 3 chars = tier prefix (FAM / PRO)
+  //   Chars 1-14 = body; chars 15-16 = 2-char hex checksum
+  //   Checksum = (sum of charCodes of first 14 chars + LICENSE_SECRET) % 256 → padded hex
+  const LICENSE_SECRET = 'ORCANNUS-SAFEGUARD-2025';
+  const CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+  function randomChar() {
+    return CHARS[Math.floor(Math.random() * CHARS.length)];
+  }
+
+  function computeChecksum(body14) {
+    // body14 must be exactly 14 alphanum chars (no dashes)
+    let sum = 0;
+    for (const c of body14 + LICENSE_SECRET) sum += c.charCodeAt(0);
+    return (sum % 256).toString(16).toUpperCase().padStart(2, '0');
+  }
+
+  function generateKey(tier) {
+    // Build 14-char body: 3-char tier prefix + 11 random chars
+    const prefix = tier; // 'FAM' or 'PRO'
+    let body = prefix;
+    while (body.length < 14) body += randomChar();
+    const checksum = computeChecksum(body);
+    // Full 16-char string → format as XXXX-XXXX-XXXX-XXXX
+    const full = body + checksum;
+    return `${full.slice(0,4)}-${full.slice(4,8)}-${full.slice(8,12)}-${full.slice(12,16)}`;
+  }
+
+  function generateKeys() {
+    const tier = document.getElementById('tier-select').value;
+    const mode = document.getElementById('mode-select').value;
+    const qty = mode === 'batch' ? Math.min(100, Math.max(1, parseInt(document.getElementById('batch-qty').value) || 1)) : 1;
+
+    const newKeys = [];
+    for (let i = 0; i < qty; i++) {
+      newKeys.push({ key: generateKey(tier), tier });
+    }
+    keys = [...newKeys, ...keys];
+    renderKeys();
+    showToast(`✔ ${qty} ${tierLabel(tier)} key${qty > 1 ? 's' : ''} generated`);
+  }
+
+  // ── RENDER ──
+  function renderKeys() {
+    const list = document.getElementById('key-list');
+    document.getElementById('key-count').textContent = keys.length;
+
+    if (keys.length === 0) {
+      list.innerHTML = `<div class="empty-state"><span class="icon">🔑</span>No keys generated yet.<br>Configure options above and click Generate.</div>`;
+      return;
+    }
+
+    list.innerHTML = keys.map((k, i) => `
+      <div class="key-item">
+        <div class="key-tier-dot" style="background:${tierColor(k.tier)};box-shadow:0 0 6px ${tierColor(k.tier)}66;"></div>
+        <div class="key-value">${k.key}</div>
+        <div class="key-tier-label ${tierClass(k.tier)}">${tierLabel(k.tier)}</div>
+        <button class="key-copy-btn" id="copy-btn-${i}" onclick="copyKey('${k.key}', ${i})">Copy</button>
+      </div>
+    `).join('');
+  }
+
+  // ── COPY ──
+  function copyKey(key, idx) {
+    navigator.clipboard.writeText(key).then(() => {
+      const btn = document.getElementById(`copy-btn-${idx}`);
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+    });
+  }
+
+  function copyAll() {
+    if (keys.length === 0) { showToast('⚠ No keys to copy'); return; }
+    const text = keys.map(k => `${k.key}\t${tierLabel(k.tier)}`).join('\n');
+    navigator.clipboard.writeText(text).then(() => showToast(`✔ Copied ${keys.length} keys to clipboard`));
+  }
+
+  function clearAll() {
+    if (keys.length === 0) return;
+    keys = [];
+    renderKeys();
+    showToast('🗑 All keys cleared');
+  }
+
+  // ── TOAST ──
+  let toastTimer;
+  function showToast(msg) {
+    let el = document.getElementById('toast');
+    if (el) el.remove();
+    el = document.createElement('div');
+    el.className = 'toast';
+    el.id = 'toast';
+    el.textContent = msg;
+    document.body.appendChild(el);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      el.classList.add('hide');
+      setTimeout(() => el.remove(), 300);
+    }, 2400);
+  }
+</script>
+</body>
+</html>

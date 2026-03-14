@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeGuard – Your Digital Safety Helper</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --warm-white: #FFFAF4;
+    --gold: #D4922A;
+    --gold-light: #F5C264;
+    --gold-pale: #FEF0CC;
+    --teal: #2A7A6B;
+    --teal-light: #3BA892;
+    --teal-pale: #D6F0EB;
+    --red: #C0392B;
+    --red-pale: #FDECEB;
+    --blue: #2563EB;
+    --blue-pale: #EFF6FF;
+    --text-dark: #2C2416;
+    --text-mid: #5C4A2A;
+    --text-soft: #8B7355;
+    --border: #E8D5B0;
+    --shadow: 0 4px 24px rgba(44,36,22,0.10);
+    --shadow-lg: 0 8px 40px rgba(44,36,22,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    font-size: 20px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #2A7A6B 0%, #1a5c50 100%);
+    color: white;
+    padding: 28px 32px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .logo-icon {
+    width: 64px; height: 64px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 34px;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  header h1 {
+    font-family: 'Lora', serif;
+    font-size: 2.1rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  header p {
+    font-size: 1.05rem;
+    opacity: 0.88;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .header-right {
+    margin-left: auto;
+    text-align: right;
+  }
+  .emergency-btn {
+    background: #FF6B35;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(255,107,53,0.4);
+  }
+  .emergency-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,53,0.5); }
+
+  /* ── NAV TABS ── */
+  nav {
+    background: var(--warm-white);
+    border-bottom: 2px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 4px solid transparent;
+    padding: 18px 20px 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-soft);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tab-btn:hover { color: var(--teal); }
+  .tab-btn.active {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 36px 24px 80px;
+  }
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    margin-bottom: 28px;
+  }
+  .section-header h2 {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+  .section-header p {
+    font-size: 1.1rem;
+    color: var(--text-mid);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+  .card-red { border-left: 6px solid var(--red); background: #FFFAFA; }
+  .card-teal { border-left: 6px solid var(--teal); }
+  .card-gold { border-left: 6px solid var(--gold); }
+  .card-blue { border-left: 6px solid var(--blue); }
+
+  .card h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card p, .card li { font-size: 1.05rem; color: var(--text-mid); }
+  .card ul { padding-left: 24px; }
+  .card li { margin-bottom: 6px; }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-flex; align-items: center;
+    background: var(--red-pale);
+    color: var(--red);
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+  .badge-teal { background: var(--teal-pale); color: var(--teal); }
+  .badge-gold { background: var(--gold-pale); color: #A06820; }
+
+  /* ── SCAM CHECKER ── */
+  .checker-box {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .checker-box h3 {
+    font-size: 1.4rem; font-weight: 800;
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .checker-box > p { color: var(--text-soft); margin-bottom: 20px; font-size: 1rem; }
+
+  textarea, input[type="text"] {
+    width: 100%;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 1.05rem;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-dark);
+    background: var(--cream);
+    resize: vertical;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  textarea:focus, input[type="text"]:focus { border-color: var(--teal); background: white; }
+  textarea { min-height: 130px; }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    margin-top: 14px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(42,122,107,0.3);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(42,122,107,0.4); }
+
+  .result-box {
+    margin-top: 20px;
+    border-radius: 16px;
+    padding: 22px 26px;
+    font-size: 1.05rem;
+    display: none;
+  }
+  .result-box.show { display: block; animation: fadeIn 0.3s ease; }
+  .result-danger { background: var(--red-pale); border: 2px solid #F5C6C2; color: #7B1A12; }
+  .result-safe { background: var(--teal-pale); border: 2px solid #A8DDD4; color: #1A5244; }
+  .result-caution { background: var(--gold-pale); border: 2px solid #F5D98A; color: #7A4A08; }
+  .result-box h4 { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .result-box ul { padding-left: 22px; margin-top: 8px; }
+  .result-box li { margin-bottom: 5px; }
+
+  /* ── QUIZ ── */
+  .quiz-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+  }
+  .quiz-q {
+    font-size: 1.3rem; font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+  .quiz-opt {
+    background: var(--cream);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 22px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s, background 0.2s;
+    color: var(--text-dark);
+  }
+  .quiz-opt:hover { border-color: var(--teal); background: var(--teal-pale); }
+  .quiz-opt.correct { background: var(--teal-pale); border-color: var(--teal); color: var(--teal); font-weight: 800; }
+  .quiz-opt.wrong { background: var(--red-pale); border-color: var(--red); color: var(--red); font-weight: 800; }
+  .quiz-feedback {
+    margin-top: 18px;
+    padding: 18px 22px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; animation: fadeIn 0.3s ease; }
+  .quiz-feedback.correct-fb { background: var(--teal-pale); color: #1A5244; border: 1.5px solid #A8DDD4; }
+  .quiz-feedback.wrong-fb { background: var(--red-pale); color: #7B1A12; border: 1.5px solid #F5C6C2; }
+  .quiz-nav { display: flex; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+  .btn-secondary {
+    background: var(--gold-pale);
+    color: #7A4A08;
+    border: 2px solid var(--gold);
+    border-radius: 14px;
+    padding: 13px 26px;
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-secondary:hover { background: var(--gold); color: white; }
+  .quiz-score {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    margin-top: 16px;
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-box {
+    width: 32px; height: 32px; min-width: 32px;
+    border-radius: 8px;
+    border: 2.5px solid var(--border);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+    background: white;
+  }
+  .check-box.checked { background: var(--teal); border-color: var(--teal); color: white; }
+  .check-label { flex: 1; }
+  .check-label strong { display: block; font-size: 1.1rem; margin-bottom: 3px; }
+  .check-label span { font-size: 0.95rem; color: var(--text-soft); }
+
+  /* ── CONTACT MANAGER ── */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 20px; }
+  .contact-card {
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+    text-align: center;
+  }
+  .contact-avatar {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+  }
+  .contact-card h4 { font-size: 1.1rem; font-weight: 800; }
+  .contact-card p { font-size: 0.95rem; color: var(--text-soft); }
+  .contact-card .role { font-size: 0.8rem; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .call-btn {
+    background: var(--teal-pale);
+    color: var(--teal);
+    border: none;
+    border-radius: 10px;
+    padding: 9px 20px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    margin-top: 12px;
+    width: 100%;
+  }
+  .call-btn:hover { background: var(--teal); color: white; }
+
+  /* ── TIPS GRID ── */
+  .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+  .tip-card {
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+  }
+  .tip-icon { font-size: 2.2rem; margin-bottom: 12px; }
+  .tip-card h4 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+  .tip-card p { font-size: 0.97rem; color: var(--text-mid); }
+
+  /* ── UPGRADE BANNER ── */
+  .upgrade-banner {
+    background: linear-gradient(135deg, var(--gold-pale), #fff8e8);
+    border: 2px solid var(--gold-light);
+    border-radius: 18px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .upgrade-banner-icon { font-size: 2rem; flex-shrink: 0; }
+  .upgrade-banner-text h4 { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 4px; }
+  .upgrade-banner-text p  { font-size: 0.97rem; color: var(--text-mid); }
+  .upgrade-banner-btn {
+    margin-left: auto;
+    background: var(--gold);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(212,146,42,0.35);
+  }
+  .upgrade-banner-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,146,42,0.45); }
+
+  /* ── LICENSE GATE ── */
+  #licenseGate {
+    position: fixed; inset: 0;
+    background: var(--cream);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  #licenseGate.hidden { display: none; }
+  .license-gate-box {
+    background: white;
+    border-radius: 28px;
+    padding: 48px 44px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--border);
+    text-align: center;
+  }
+  .license-gate-logo { font-size: 3rem; margin-bottom: 16px; }
+  .license-gate-box h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+  }
+  .license-gate-box > p {
+    font-size: 1rem;
+    color: var(--text-mid);
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+
+  /* Free tier option */
+  .tier-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .tier-option {
+    background: var(--cream);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 20px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+  }
+  .tier-option:hover { border-color: var(--teal); background: var(--teal-pale); }
+  .tier-option-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .tier-option-label { font-size: 1rem; font-weight: 800; color: var(--text-dark); }
+  .tier-option-desc  { font-size: 0.88rem; color: var(--text-soft); font-weight: 600; margin-top: 2px; }
+  .tier-option-arrow { margin-left: auto; font-size: 1.1rem; color: var(--text-soft); }
+
+  .license-divider {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 20px; color: var(--text-soft); font-size: 0.88rem; font-weight: 700;
+  }
+  .license-divider::before, .license-divider::after {
+    content: ''; flex: 1; height: 1.5px; background: var(--border);
+  }
+
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1000;
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.show { display: flex; animation: fadeIn 0.2s ease; }
+  .modal {
+    background: white;
+    border-radius: 24px;
+    padding: 36px;
+    max-width: 540px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .modal h2 { font-family: 'Lora', serif; font-size: 1.7rem; margin-bottom: 8px; color: var(--red); }
+  .modal p { font-size: 1rem; color: var(--text-mid); margin-bottom: 20px; }
+  .modal-actions { display: flex; flex-direction: column; gap: 12px; }
+  .modal-action {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-family: 'Nunito', sans-serif;
+  }
+  .modal-action-icon { font-size: 1.4rem; }
+  .modal-action-red { background: var(--red-pale); color: var(--red); border-color: #F5C6C2; }
+  .modal-action-teal { background: var(--teal-pale); color: var(--teal); border-color: #A8DDD4; }
+  .modal-action-blue { background: var(--blue-pale); color: var(--blue); border-color: #BFDBFE; }
+  .modal-close {
+    background: var(--cream); color: var(--text-mid);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 1rem; font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  /* ── STRENGTH METER ── */
+  .strength-meter { margin-top: 10px; }
+  .strength-bar { height: 10px; border-radius: 999px; background: var(--border); overflow: hidden; }
+  .strength-fill { height: 100%; border-radius: 999px; transition: width 0.4s, background 0.4s; width: 0%; }
+  .strength-label { font-size: 0.9rem; font-weight: 700; margin-top: 6px; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap { background: var(--border); border-radius: 999px; height: 12px; margin-bottom: 6px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--teal), var(--teal-light)); transition: width 0.4s; }
+  .progress-label { font-size: 0.9rem; color: var(--text-soft); font-weight: 600; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.5rem; }
+    .tab-btn { font-size: 0.9rem; padding: 14px 12px 10px; }
+    main { padding: 24px 14px 60px; }
+  }
+
+  /* ── LICENSE GATE ── */
+  #licenseGate {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, #1a5c50 0%, #0f3d35 50%, #0a2820 100%);
+    z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  #licenseGate.hidden { display: none; }
+  .license-box {
+    background: white;
+    border-radius: 28px;
+    padding: 48px 44px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+  .license-logo {
+    width: 88px; height: 88px;
+    background: linear-gradient(135deg, #2A7A6B, #3BA892);
+    border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 44px;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 24px rgba(42,122,107,0.35);
+  }
+  .license-box h1 {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+  .license-box .tagline {
+    font-size: 1rem;
+    color: var(--text-soft);
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+  .license-label {
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-mid);
+    margin-bottom: 8px;
+    display: block;
+  }
+  #licenseInput {
+    width: 100%;
+    border: 2.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-size: 1.15rem;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-dark);
+    text-align: center;
+    letter-spacing: 2px;
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 16px;
+  }
+  #licenseInput:focus { border-color: var(--teal); background: white; }
+  #licenseInput.error { border-color: var(--red); background: #fff8f8; animation: shake 0.4s ease; }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)}
+  }
+  .license-submit {
+    width: 100%;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 18px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(42,122,107,0.35);
+  }
+  .license-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(42,122,107,0.45); }
+  #licenseError {
+    color: var(--red);
+    font-size: 0.97rem;
+    font-weight: 700;
+    margin-top: 14px;
+    min-height: 24px;
+  }
+  #licenseError.success { color: var(--teal); }
+  .license-footer {
+    margin-top: 28px;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    border-top: 1.5px solid var(--border);
+    padding-top: 20px;
+  }
+  .license-footer strong { color: var(--text-mid); }
+  .license-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--teal-pale);
+    color: var(--teal);
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  /* Activated indicator in header */
+  .license-indicator {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: white;
+    margin-left: 12px;
+  }
+  .license-indicator.show { display: flex; }
+</style>
+</head>
+<body>
+
+<!-- LICENSE GATE -->
+<div id="licenseGate">
+  <div class="license-gate-box">
+    <div class="license-gate-logo">🛡️</div>
+    <h2>Welcome to SafeGuard</h2>
+    <p>Choose how you'd like to get started today.</p>
+
+    <div class="tier-options">
+      <button class="tier-option" onclick="startFree()">
+        <span class="tier-option-icon">🏠</span>
+        <div>
+          <div class="tier-option-label">Continue with Free Trial</div>
+          <div class="tier-option-desc">Home · My Safety Checklist · Helpful Tips</div>
+        </div>
+        <span class="tier-option-arrow">→</span>
+      </button>
+    </div>
+
+    <div class="license-divider">or enter a license key</div>
+
+    <div class="license-badge badge-teal">🔑 Have a license key?</div>
+    <label class="license-label" for="licenseInput">Enter your key below to unlock your plan</label>
+    <input type="text" id="licenseInput" placeholder="XXXX-XXXX-XXXX-XXXX"
+      oninput="formatLicenseKey(this)" autocomplete="off" spellcheck="false" maxlength="19">
+    <button class="license-submit" onclick="submitLicense()">🔓 Activate License</button>
+    <div id="licenseError"></div>
+
+    <div class="license-footer">
+      <strong>Need a license?</strong> Visit <a href="https://orcannus.github.io/safeguard" style="color:var(--teal);font-weight:800;">orcannus.github.io/safeguard</a> to upgrade to Family or Pro.
+    </div>
+  </div>
+</div>
+
+<!-- EMERGENCY MODAL -->
+<div class="modal-overlay" id="emergencyModal">
+  <div class="modal" id="modalMain">
+    <h2>🚨 I Need Help Now!</h2>
+    <p>Don't panic. Tap what best describes your situation:</p>
+    <div class="modal-actions">
+      <button class="modal-action modal-action-red" onclick="showHelp('clicked')">
+        <span class="modal-action-icon">📧</span>
+        <div style="text-align:left;">
+          <strong>I clicked something suspicious</strong>
+          <div style="font-size:0.88rem; font-weight:500; opacity:0.8; margin-top:2px;">An email link, ad, or pop-up</div>
+        </div>
+      </button>
+      <button class="modal-action modal-action-red" onclick="showHelp('bankinfo')">
+        <span class="modal-action-icon">💳</span>
+        <div style="text-align:left;"><strong>I gave someone my credit card or bank info</strong></div>
+      </button>
+      <button class="modal-action modal-action-red" onclick="showHelp('phonecall')">
+        <span class="modal-action-icon">📱</span>
+        <div style="text-align:left;"><strong>Someone called pretending to be from a company</strong></div>
+      </button>
+      <button class="modal-action modal-action-teal" onclick="showHelp('hacked')">
+        <span class="modal-action-icon">🔐</span>
+        <div style="text-align:left;"><strong>My Facebook or email was hacked</strong></div>
+      </button>
+      <button class="modal-action modal-action-blue" onclick="showHelp('remote')">
+        <span class="modal-action-icon">🧑‍💻</span>
+        <div style="text-align:left;"><strong>Someone has remote access to my computer</strong></div>
+      </button>
+    </div>
+    <button class="modal-close" onclick="closeModal()">✕ Close – I'm okay for now</button>
+  </div>
+
+  <!-- HELP DETAIL PANEL -->
+  <div class="modal" id="modalHelp" style="display:none; max-height:90vh; overflow-y:auto;">
+    <div id="modalHelpContent"></div>
+    <button class="modal-action modal-action-teal" style="width:100%;margin-top:14px;justify-content:center;" onclick="backToMenu()">← Back to Menu</button>
+    <button class="modal-close" onclick="closeModal()">✕ Close</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-icon">🛡️</div>
+  <div>
+    <h1>SafeGuard <span class="license-indicator" id="licenseIndicator">✦ Licensed</span></h1>
+    <p>Your friendly digital safety companion</p>
+  </div>
+  <div class="header-right">
+    <button class="emergency-btn" onclick="openModal()">🚨 I Need Help Now!</button>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <button class="tab-btn active" onclick="showTab('home', this)">🏠 Home</button>
+  <button class="tab-btn" id="tab-scam-checker" onclick="showTab('scam-checker', this)" style="display:none;">🔍 Scam Checker</button>
+  <button class="tab-btn" id="tab-quiz" onclick="showTab('quiz', this)" style="display:none;">🧠 Safety Quiz</button>
+  <button class="tab-btn" onclick="showTab('checklist', this)">✅ My Safety Checklist</button>
+  <button class="tab-btn" id="tab-passwords" onclick="showTab('passwords', this)" style="display:none;">🔑 Password Helper</button>
+  <button class="tab-btn" id="tab-contacts" onclick="showTab('contacts', this)" style="display:none;">📞 Trusted Contacts</button>
+  <button class="tab-btn" onclick="showTab('tips', this)">💡 Helpful Tips</button>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- ── HOME ── -->
+  <div class="section active" id="home">
+    <div class="section-header">
+      <h2>Welcome! 👋 You're in the right place.</h2>
+      <p>This app helps you stay safe online — especially with email and Facebook. No confusing tech-talk, we promise.</p>
+    </div>
+
+    <!-- Warning signs top cards -->
+    <div class="card card-red">
+      <div class="badge">🚨 Stop & Read This First</div>
+      <h3>⚠️ Signs Someone Is Trying to Trick You</h3>
+      <ul>
+        <li><strong>They say it's URGENT</strong> — "Act NOW or your account will be closed!"</li>
+        <li><strong>They ask for gift cards</strong> — No real company ever asks you to pay with gift cards</li>
+        <li><strong>They threaten you</strong> — "You'll be arrested if you don't pay immediately"</li>
+        <li><strong>They say you won a prize</strong> — Especially if you didn't enter anything</li>
+        <li><strong>They want your password</strong> — Facebook & banks never ask for your password</li>
+        <li><strong>The phone number seems strange</strong> — Or they won't let you hang up</li>
+      </ul>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:20px;">
+      <div class="card card-teal" style="margin-bottom:0;">
+        <h3>📧 Email Safety</h3>
+        <p>Before clicking any link in an email, ask yourself: <strong>Did I expect this email? Do I know this sender?</strong> When in doubt — don't click!</p>
+      </div>
+      <div class="card card-teal" style="margin-bottom:0;">
+        <h3>👍 Facebook Safety</h3>
+        <p>If a "friend" messages asking for money or gift cards — even if it looks like them — call that person directly. Their account may be hacked.</p>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <h3>✅ The Golden Rule of Online Safety</h3>
+      <p style="font-size:1.2rem; font-weight:700; color:var(--text-dark);">
+        "When in doubt, <em>don't</em>."
+      </p>
+      <p style="margin-top:8px;">Don't click. Don't call back. Don't send money. Don't give your password. 
+      Close the window, put down the phone, and call a trusted family member or friend first.</p>
+    </div>
+
+    <div class="card">
+      <h3>📋 Quick Start — Use These Tools:</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px;">
+        <button onclick="gotoTab('scam-checker','tab-scam-checker')" style="background:var(--teal-pale);border:2px solid var(--teal);border-radius:14px;padding:14px;font-size:1rem;font-weight:800;font-family:'Nunito',sans-serif;color:var(--teal);cursor:pointer;">🔍 Check if a message is a scam</button>
+        <button onclick="gotoTab('quiz','tab-quiz')" style="background:var(--gold-pale);border:2px solid var(--gold);border-radius:14px;padding:14px;font-size:1rem;font-weight:800;font-family:'Nunito',sans-serif;color:#7A4A08;cursor:pointer;">🧠 Test my safety knowledge</button>
+        <button onclick="showTab('checklist', document.querySelector('[onclick*=checklist]'))" style="background:var(--blue-pale);border:2px solid var(--blue);border-radius:14px;padding:14px;font-size:1rem;font-weight:800;font-family:'Nunito',sans-serif;color:var(--blue);cursor:pointer;">✅ See my safety checklist</button>
+        <button onclick="gotoTab('passwords','tab-passwords')" style="background:var(--red-pale);border:2px solid var(--red);border-radius:14px;padding:14px;font-size:1rem;font-weight:800;font-family:'Nunito',sans-serif;color:var(--red);cursor:pointer;">🔑 Check my password strength</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCAM CHECKER ── -->
+  <div class="section" id="scam-checker">
+    <div class="section-header">
+      <h2>🔍 Scam Checker</h2>
+      <p>Paste a suspicious message, email, or phone number below and we'll help you figure out if it's a scam.</p>
+    </div>
+
+    <!-- Standard users see this banner instead of AI tools -->
+    <div class="ai-locked-banner card card-gold" style="display:none; margin-bottom:20px;">
+      <h3>💎 AI Analysis — Premium Feature</h3>
+      <p>The AI-powered scam checker and phone number analyzer require a <strong>Premium</strong> or <strong>Admin</strong> license. Your Standard license gives you access to all other features of SafeGuard.</p>
+      <p style="margin-top:10px; font-size:0.95rem; color:var(--text-soft);">Contact <strong>orcannus.com</strong> to upgrade your license.</p>
+    </div>
+
+    <!-- AI features — hidden for Standard tier -->
+    <div class="ai-feature">
+      <div class="checker-box">
+        <h3>🤖 AI Message Scanner</h3>
+        <p style="color:var(--text-soft); margin-bottom:16px;">Paste any suspicious email or message. Our AI will analyze it and tell you if it's a scam.</p>
+        <textarea id="scamText" placeholder="Example: 'URGENT! Your Social Security number has been suspended. Call 1-800-555-1234 immediately to avoid arrest...'"></textarea>
+        <button class="btn-primary" onclick="checkScam()">🔍 Analyze This Message</button>
+      </div>
+
+      <div class="result-box" id="scamResult"></div>
+
+      <div class="card" style="margin-top:16px;">
+        <h3>📞 Suspicious Phone Number?</h3>
+        <p style="margin-bottom:14px;">Enter the phone number that called you:</p>
+        <input type="text" id="phoneInput" placeholder="e.g. 1-800-555-1234" style="max-width:340px; display:block;">
+        <button class="btn-primary" onclick="checkPhone()" style="margin-top:12px;">🔍 Check This Number</button>
+        <div id="phoneResult" style="margin-top:14px;"></div>
+      </div>
+
+      <!-- API KEY SETUP -->
+      <div id="apiKeyBanner" class="card card-gold" style="margin-top:16px;">
+        <h3>🔑 One-Time Setup — AI Analysis Key</h3>
+        <p style="margin-bottom:12px;">Enter your Anthropic API key to power the AI scanner. It stays only in your browser and is never shared.</p>
+        <input type="password" id="apiKeyInput" placeholder="Paste your API key here (sk-ant-...)" style="max-width:480px;display:block;">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
+          <button class="btn-primary" onclick="saveApiKey()">💾 Save Key</button>
+          <button class="btn-secondary" onclick="clearApiKey()">🗑️ Clear Key</button>
+        </div>
+        <p id="apiKeyStatus" style="margin-top:10px;font-size:0.95rem;font-weight:700;color:var(--teal);display:none;"></p>
+      </div>
+    </div>
+
+    <!-- Keyword checker — available to ALL tiers -->
+    <div class="checker-box" style="margin-top:16px;">
+      <h3>📋 Quick Message Check <span style="font-size:0.8rem;background:var(--teal-pale);color:var(--teal);padding:3px 10px;border-radius:999px;font-weight:700;margin-left:8px;">All Plans</span></h3>
+      <p style="color:var(--text-soft); margin-bottom:16px;">Paste a message to scan it for common scam phrases instantly — no AI needed.</p>
+      <textarea id="scamTextBasic" placeholder="Paste a suspicious message here..."></textarea>
+      <button class="btn-primary" onclick="checkScamBasic()">🔍 Quick Check</button>
+      <div class="result-box" id="scamResultBasic" style="margin-top:14px;"></div>
+    </div>
+
+    <div class="card card-gold" style="margin-top:16px;">
+      <h3>⚠️ Common Scam Types</h3>
+      <ul>
+        <li><strong>IRS / Social Security scam</strong> — They NEVER call you first. Ignore it.</li>
+        <li><strong>Microsoft/Apple tech support scam</strong> — Real companies don't call you about viruses.</li>
+        <li><strong>Lottery/prize scam</strong> — "You've won! Just pay the fee first." It's fake.</li>
+        <li><strong>Grandparent scam</strong> — "Hi Grandma, I'm in jail, don't tell Mom!" Hang up & verify.</li>
+        <li><strong>Romance scam</strong> — Online "friend" who never video chats & asks for money.</li>
+        <li><strong>Medicare scam</strong> — Asking for your Medicare number to send a "free gift."</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── QUIZ ── -->
+  <div class="section" id="quiz">
+    <div class="section-header">
+      <h2>🧠 Safety Quiz</h2>
+      <p>Test your knowledge! These real-life questions will help you spot scams and stay safe.</p>
+    </div>
+    <div class="quiz-card">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quizProgress" style="width:0%"></div></div>
+      <div class="progress-label" id="quizProgressLabel">Question 1 of 10</div>
+      <br>
+      <div class="quiz-q" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-nav">
+        <button class="btn-primary" id="quizNextBtn" onclick="nextQuestion()" style="display:none;">Next Question →</button>
+        <button class="btn-secondary" onclick="resetQuiz()">🔄 Start Over</button>
+      </div>
+      <div class="quiz-score" id="quizScore"></div>
+    </div>
+  </div>
+
+  <!-- ── CHECKLIST ── -->
+  <div class="section" id="checklist">
+    <div class="section-header">
+      <h2>✅ My Safety Checklist</h2>
+      <p>Check off each item as you complete it. These steps keep you protected!</p>
+    </div>
+    <div class="card">
+      <div style="margin-bottom:12px;">
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="checklistProgress" style="width:0%"></div></div>
+        <div class="progress-label" id="checklistLabel">0 of 12 completed</div>
+      </div>
+      <div id="checklistItems"></div>
+    </div>
+  </div>
+
+  <!-- ── PASSWORDS ── -->
+  <div class="section" id="passwords">
+    <div class="section-header">
+      <h2>🔑 Password Helper</h2>
+      <p>A strong password is your first line of defense. Let's make sure yours is good!</p>
+    </div>
+    <div class="checker-box">
+      <h3>🔐 Check Your Password Strength</h3>
+      <p>Type a password below to see how strong it is. We never save or send this anywhere.</p>
+      <input type="text" id="passwordInput" placeholder="Type a password here..." oninput="checkPassword()">
+      <div class="strength-meter">
+        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+        <div class="strength-label" id="strengthLabel">Start typing to see your score</div>
+      </div>
+      <div id="passwordTips" style="margin-top:14px;"></div>
+    </div>
+
+    <div class="card card-gold">
+      <h3>💡 How to Create a Great Password</h3>
+      <p style="margin-bottom:10px;">The best passwords are <strong>long and easy to remember</strong>. Try a "passphrase" — 3 or 4 random words:</p>
+      <div style="background:var(--cream);border-radius:12px;padding:16px 20px;margin:12px 0;font-size:1.2rem;font-weight:800;letter-spacing:2px;color:var(--teal);" id="passphraseExample">
+        🎲 Click below to generate one!
+      </div>
+      <button class="btn-primary" onclick="generatePassphrase()">🎲 Generate Passphrase</button>
+    </div>
+
+    <div class="card card-teal">
+      <h3>⚠️ Password Rules to Remember</h3>
+      <ul>
+        <li>Never use your name, birthday, or address</li>
+        <li>Don't use "password", "123456", or "qwerty"</li>
+        <li>Use a <strong>different password</strong> for email vs. Facebook vs. banking</li>
+        <li>Write passwords down in a notebook kept in a safe place at home</li>
+        <li>Never share your password — not even with family over the phone</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── CONTACTS ── -->
+  <div class="section" id="contacts">
+    <div class="section-header">
+      <h2>📞 Trusted Contacts</h2>
+      <p>When something seems wrong online, call one of these trusted people <em>before</em> doing anything else.</p>
+    </div>
+
+    <div class="card card-red" style="margin-bottom:24px;">
+      <h3>🚨 Emergency Numbers — Always Available</h3>
+      <div class="contact-grid" style="margin-top:14px;">
+        <div class="contact-card">
+          <div class="contact-avatar" style="background:linear-gradient(135deg,#C0392B,#E74C3C);">🚔</div>
+          <div class="role">Emergency</div>
+          <h4>Police / Emergency</h4>
+          <p>Life-threatening situation</p>
+          <a href="tel:911" class="call-btn" style="display:block;text-decoration:none;text-align:center;">📞 Call 911</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-avatar" style="background:linear-gradient(135deg,#2563EB,#60A5FA);">🏛️</div>
+          <div class="role">Government</div>
+          <h4>FTC Fraud Hotline</h4>
+          <p>Report a scam or fraud</p>
+          <a href="tel:18772382357" class="call-btn" style="display:block;text-decoration:none;text-align:center;">📞 1-877-382-4357</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-avatar" style="background:linear-gradient(135deg,#7C3AED,#A78BFA);">👴</div>
+          <div class="role">Senior Help</div>
+          <h4>Elder Fraud Hotline</h4>
+          <p>DOJ Elder Justice Initiative</p>
+          <a href="tel:18334SENIOR" class="call-btn" style="display:block;text-decoration:none;text-align:center;">📞 1-833-4-SENIOR</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>👨‍👩‍👧 My Trusted People</h3>
+      <p style="color:var(--text-soft); margin-bottom:18px;">Write these numbers in a notebook too — in case your phone isn't working.</p>
+      <div id="trustedContactsList"></div>
+      <button class="btn-primary" style="margin-top:18px;" onclick="addContact()">➕ Add a Trusted Contact</button>
+    </div>
+
+    <div class="card card-teal">
+      <h3>📋 When to Call a Trusted Person</h3>
+      <ul>
+        <li>You received a strange email or message</li>
+        <li>Someone called asking for personal information</li>
+        <li>A pop-up appeared on your computer saying it was hacked</li>
+        <li>You're not sure if something is safe to click</li>
+        <li>Your Facebook or email password stopped working</li>
+        <li>You feel pressured to do something quickly online</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── TIPS ── -->
+  <div class="section" id="tips">
+    <div class="section-header">
+      <h2>💡 Helpful Tips</h2>
+      <p>Simple things that make a big difference in staying safe online.</p>
+    </div>
+
+    <h3 style="font-family:'Lora',serif; margin-bottom:18px; color:var(--text-mid); font-size:1.3rem;">📧 Email Tips</h3>
+    <div class="tips-grid" style="margin-bottom:32px;">
+      <div class="tip-card">
+        <div class="tip-icon">🔍</div>
+        <h4>Check the Sender's Address</h4>
+        <p>Real emails from Facebook say "@facebook.com". Scammers use fake ones like "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="06606765636469696d2b6e636a7646616b676f6a2865696b">[email&#160;protected]</a>".</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🖱️</div>
+        <h4>Hover Before You Click</h4>
+        <p>Before clicking a link, hover your mouse over it. The real address shows at the bottom of your screen. If it looks strange, don't click.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🗑️</div>
+        <h4>Delete Suspicious Emails</h4>
+        <p>If an email feels wrong, just delete it! You can always go directly to a website by typing the address yourself.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🚫</div>
+        <h4>Never Open Attachments</h4>
+        <p>Don't open .zip, .exe, or unexpected PDF files from strangers — they can contain viruses.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Lora',serif; margin-bottom:18px; color:var(--text-mid); font-size:1.3rem;">👍 Facebook Tips</h3>
+    <div class="tips-grid" style="margin-bottom:32px;">
+      <div class="tip-card">
+        <div class="tip-icon">🔒</div>
+        <h4>Set Your Profile to "Friends Only"</h4>
+        <p>Go to Settings → Privacy → "Who can see your future posts?" Set it to Friends, not Public.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🎣</div>
+        <h4>Beware of Quizzes & Games</h4>
+        <p>Fun quizzes like "What's your pirate name?" often steal your information. Skip them!</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🤝</div>
+        <h4>Be Careful with Friend Requests</h4>
+        <p>If you get a second friend request from someone already your friend — it's a fake account! Report it.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">💬</div>
+        <h4>Messenger Money Requests</h4>
+        <p>If a "friend" messages asking for money or gift cards — call them on the phone first. Their account may be hacked.</p>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Lora',serif; margin-bottom:18px; color:var(--text-mid); font-size:1.3rem;">💻 General Computer Tips</h3>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">🔄</div>
+        <h4>Keep Your Computer Updated</h4>
+        <p>When Windows or your phone asks to install updates, say yes! Updates fix security holes that hackers use.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🛡️</div>
+        <h4>Use Antivirus Software</h4>
+        <p>Windows Defender (built into Windows) is free and good. Keep it turned on and up to date.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📶</div>
+        <h4>Be Careful on Public WiFi</h4>
+        <p>Don't check your bank or email at a coffee shop on their free WiFi. Hackers can spy on public networks.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">💾</div>
+        <h4>Back Up Your Photos</h4>
+        <p>Keep copies of important photos on a USB drive or external hard drive — in case your computer ever gets a virus.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🖨️</div>
+        <h4>Print Important Information</h4>
+        <p>Print your important account information, emergency contacts, and passwords (stored safely at home).</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📱</div>
+        <h4>Two-Factor Authentication</h4>
+        <p>Turn on "two-step verification" for your email and Facebook. It sends a code to your phone when someone tries to log in.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ══════════════════════════════════════════════
+//  SAFEGUARD LICENSE SYSTEM  v2.0
+//  Tiers:  STD  Standard  – full app, no AI
+//          PRM  Premium   – full app + AI checker
+//          ADM  Admin     – all features, never expires
+//
+//  Key format:  TTTT-NNNN-NNNN-CCCC
+//    TTTT = tier prefix (STD1, STD2, PRM1, PRM2, ADM1 …)
+//    NNNN-NNNN = 8-char unique serial
+//    CCCC = checksum group (last 2 chars are hex checksum)
+//
+//  Checksum = (sum of charCodes of first 14 alphanum chars
+//              + charCodes of SECRET) % 256 → 2-char hex
+// ══════════════════════════════════════════════
+
+const LICENSE_SECRET = 'ORCANNUS-SAFEGUARD-2025';
+
+// Tier definitions
+const TIERS = {
+  FAM: { label: 'Family',  color: '#2A7A6B', badge: '⭐ Family',  hasAI: false, level: 2 },
+  PRO: { label: 'Pro',     color: '#FF6B35', badge: '🔥 Pro',     hasAI: true,  level: 3 },
+};
+
+// Active license state
+let activeLicense = null; // { key, tier, tierInfo }
+
+function getTierFromKey(key) {
+  const clean = key.replace(/-/g,'').toUpperCase();
+  const prefix = clean.slice(0,3);
+  if (prefix === 'FAM') return 'FAM';
+  if (prefix === 'PRO') return 'PRO';
+  return null;
+}
+
+function validateKeyFormat(key) {
+  return /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(key.toUpperCase());
+}
+
+function validateChecksum(key) {
+  const clean = key.replace(/-/g,'').toUpperCase();
+  if (clean.length !== 16) return false;
+  const body  = clean.slice(0, 14);
+  const check = clean.slice(14, 16);
+  let sum = 0;
+  for (const c of body + LICENSE_SECRET) sum += c.charCodeAt(0);
+  const expected = (sum % 256).toString(16).toUpperCase().padStart(2,'0');
+  return check === expected;
+}
+
+function applyTier(tier, key) {
+  const tierInfo = TIERS[tier];
+  activeLicense = { key, tier, tierInfo };
+
+  // Update header badge
+  const ind = document.getElementById('licenseIndicator');
+  ind.textContent = tierInfo.badge;
+  ind.style.background = 'rgba(255,255,255,0.15)';
+  ind.classList.add('show');
+
+  // Show/hide tabs based on tier level
+  // FAM: Home, Checklist, Tips + Safety Quiz, Password Helper, Trusted Contacts
+  // PRO: All tabs including Scam Checker
+  const scamTab   = document.getElementById('tab-scam-checker');
+  const quizTab   = document.getElementById('tab-quiz');
+  const pwTab     = document.getElementById('tab-passwords');
+  const conTab    = document.getElementById('tab-contacts');
+
+  if (tierInfo.level >= 2) {
+    // Family & Pro: show quiz, password, contacts
+    if (quizTab) quizTab.style.display = '';
+    if (pwTab)   pwTab.style.display   = '';
+    if (conTab)  conTab.style.display  = '';
+  }
+  if (tierInfo.level >= 3) {
+    // Pro only: show scam checker
+    if (scamTab) scamTab.style.display = '';
+  }
+
+  // Show/hide AI features in scam checker
+  const aiSections    = document.querySelectorAll('.ai-feature');
+  const aiLockBanners = document.querySelectorAll('.ai-locked-banner');
+  if (tierInfo.hasAI) {
+    aiSections.forEach(el => el.style.display = '');
+    aiLockBanners.forEach(el => el.style.display = 'none');
+  } else {
+    aiSections.forEach(el => el.style.display = 'none');
+    aiLockBanners.forEach(el => el.style.display = 'block');
+  }
+
+  // Store in session
+  sessionStorage.setItem('sg_license', key);
+  sessionStorage.setItem('sg_tier', tier);
+}
+
+function submitLicense() {
+  const raw    = document.getElementById('licenseInput').value.trim().toUpperCase();
+  const errEl  = document.getElementById('licenseError');
+  const input  = document.getElementById('licenseInput');
+
+  const shake = () => {
+    input.classList.add('error');
+    setTimeout(() => input.classList.remove('error'), 500);
+  };
+
+  if (!validateKeyFormat(raw)) {
+    shake();
+    errEl.className = '';
+    errEl.textContent = '❌ Invalid format. Keys look like: XXXX-XXXX-XXXX-XXXX';
+    return;
+  }
+
+  const tier = getTierFromKey(raw);
+  if (!tier) {
+    shake();
+    errEl.className = '';
+    errEl.textContent = '❌ Unknown license type. Please check your key and try again.';
+    return;
+  }
+
+  if (!validateChecksum(raw)) {
+    shake();
+    errEl.className = '';
+    errEl.textContent = '❌ Invalid license key. Please check and try again.';
+    return;
+  }
+
+  // Valid!
+  errEl.className = 'success';
+  errEl.textContent = '✅ ' + TIERS[tier].label + ' license verified! Loading SafeGuard...';
+
+  setTimeout(() => {
+    document.getElementById('licenseGate').classList.add('hidden');
+    applyTier(tier, raw);
+  }, 900);
+}
+
+function formatLicenseKey(input) {
+  let val = input.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,16);
+  const parts = val.match(/.{1,4}/g) || [];
+  input.value = parts.join('-');
+}
+
+function checkExistingLicense() {
+  const key  = sessionStorage.getItem('sg_license');
+  const tier = sessionStorage.getItem('sg_tier');
+  if (key && tier && TIERS[tier] && validateChecksum(key)) {
+    document.getElementById('licenseGate').classList.add('hidden');
+    applyTier(tier, key);
+    return true;
+  }
+  return false;
+}
+
+function startFree() {
+  document.getElementById('licenseGate').classList.add('hidden');
+  // Free tier — show only Home, Checklist, Tips (tabs already hidden by default)
+  sessionStorage.setItem('sg_tier', 'FREE');
+}
+
+window.submitLicense    = submitLicense;
+window.formatLicenseKey = formatLicenseKey;
+window.startFree        = startFree;
+
+function checkExistingLicense() {
+  const tier = sessionStorage.getItem('sg_tier');
+  if (tier === 'FREE') {
+    document.getElementById('licenseGate').classList.add('hidden');
+    return true;
+  }
+  const key = sessionStorage.getItem('sg_license');
+  if (key && tier && TIERS[tier] && validateChecksum(key)) {
+    document.getElementById('licenseGate').classList.add('hidden');
+    applyTier(tier, key);
+    return true;
+  }
+  return false;
+}
+checkExistingLicense();
+// ── TABS ──
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// Navigate to a tab — if it's locked for free tier, show upgrade prompt on home
+function gotoTab(sectionId, tabId) {
+  const tabEl = document.getElementById(tabId);
+  if (!tabEl || tabEl.style.display === 'none') {
+    // Feature is locked — show upgrade banner on home
+    showTab('home', document.querySelector('.tab-btn'));
+    const existing = document.getElementById('upgrade-prompt');
+    if (!existing) {
+      const banner = document.createElement('div');
+      banner.id = 'upgrade-prompt';
+      banner.className = 'upgrade-banner';
+      banner.innerHTML = `
+        <span class="upgrade-banner-icon">🔒</span>
+        <div class="upgrade-banner-text">
+          <h4>This feature requires a paid plan</h4>
+          <p>Upgrade to Family or Pro to unlock more tools.</p>
+        </div>
+        <a class="upgrade-banner-btn" href="https://orcannus.github.io/safeguard#pricing" target="_blank">See Plans →</a>
+      `;
+      document.getElementById('home').prepend(banner);
+      setTimeout(() => { if (banner.parentNode) banner.parentNode.removeChild(banner); }, 5000);
+    }
+    return;
+  }
+  showTab(sectionId, tabEl);
+}
+window.showTab  = showTab;
+window.gotoTab  = gotoTab;
+
+// ── MODAL ──
+function openModal() {
+  document.getElementById('emergencyModal').classList.add('show');
+  document.getElementById('modalMain').style.display = 'block';
+  document.getElementById('modalHelp').style.display = 'none';
+}
+function closeModal() {
+  document.getElementById('emergencyModal').classList.remove('show');
+}
+function backToMenu() {
+  document.getElementById('modalMain').style.display = 'block';
+  document.getElementById('modalHelp').style.display = 'none';
+}
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.backToMenu = backToMenu;
+
+const helpContent = {
+  clicked: {
+    title: '📧 You Clicked Something Suspicious',
+    color: '#C0392B',
+    steps: [
+      { icon: '1️⃣', text: '<strong>Stay calm — you may be fine.</strong> Not every click causes harm. Take a breath.' },
+      { icon: '2️⃣', text: '<strong>Close that window or tab immediately.</strong> Press the X on the browser tab or window.' },
+      { icon: '3️⃣', text: '<strong>Do NOT enter any information</strong> if a website opened. Do not type your name, password, or any numbers.' },
+      { icon: '4️⃣', text: '<strong>Run a virus scan.</strong> Open Windows Security (Windows key → type "Windows Security") and click "Quick Scan."' },
+      { icon: '5️⃣', text: '<strong>Change your email password</strong> if the link was in an email claiming to be from your email provider.' },
+      { icon: '6️⃣', text: '<strong>Call a trusted family member</strong> and tell them what happened. They can help you check if anything is wrong.' },
+    ],
+    note: '💡 If your computer starts acting strangely (slow, strange pop-ups, locked files), call a trusted person right away.'
+  },
+  bankinfo: {
+    title: '💳 You Gave Out Bank or Card Info',
+    color: '#C0392B',
+    steps: [
+      { icon: '🚨', text: '<strong>Call your bank RIGHT NOW</strong> — use the number printed on the back of your debit or credit card.' },
+      { icon: '1️⃣', text: 'Tell them: <em>"I think I was scammed and gave my account information to someone. Please freeze my card and check for unauthorized charges."</em>' },
+      { icon: '2️⃣', text: '<strong>Ask them to issue you a new card</strong> with a new number.' },
+      { icon: '3️⃣', text: '<strong>Report it to the FTC</strong> at reportfraud.ftc.gov — or call <strong>1-877-382-4357</strong>.' },
+      { icon: '4️⃣', text: '<strong>Check your bank statements</strong> over the next few weeks for any charges you don\'t recognize.' },
+      { icon: '5️⃣', text: '<strong>Tell a trusted family member</strong> so they can help you monitor your accounts.' },
+    ],
+    note: '⏰ The faster you call your bank, the more likely they can stop or reverse any unauthorized transactions.'
+  },
+  phonecall: {
+    title: '📱 You Got a Suspicious Phone Call',
+    color: '#D4922A',
+    steps: [
+      { icon: '1️⃣', text: '<strong>Hang up immediately</strong> if you are still on the call. You do not owe them anything.' },
+      { icon: '2️⃣', text: '<strong>Did you give them any personal info?</strong> If you shared your Social Security number, bank info, or passwords — see the steps above for bank info.' },
+      { icon: '3️⃣', text: '<strong>Did you give them remote access to your computer?</strong> Unplug your internet cable or turn off your WiFi right now, then call a trusted person.' },
+      { icon: '4️⃣', text: '<strong>Did you send gift cards?</strong> Call the gift card company immediately (number on back of card) to try to stop the transaction.' },
+      { icon: '5️⃣', text: '<strong>Report the call</strong> to the FTC: <strong>1-877-382-4357</strong> or donotcall.gov.' },
+      { icon: '6️⃣', text: '<strong>Block the number</strong> on your phone so they cannot call again.' },
+    ],
+    note: '🔑 Remember: The IRS, Social Security Administration, Microsoft, and your bank will NEVER call and demand immediate payment or threaten arrest.'
+  },
+  hacked: {
+    title: '🔐 Your Facebook or Email Was Hacked',
+    color: '#2A7A6B',
+    steps: [
+      { icon: '1️⃣', text: '<strong>Try to log in and change your password immediately.</strong> If you can still get in, go to Settings → Security → Change Password.' },
+      { icon: '2️⃣', text: '<strong>If you are locked out of Facebook:</strong> Go to facebook.com/login/identify and follow the steps to recover your account using your phone number or email.' },
+      { icon: '3️⃣', text: '<strong>If you are locked out of Gmail:</strong> Go to accounts.google.com/signin/recovery and answer the identity questions.' },
+      { icon: '4️⃣', text: '<strong>Tell your friends and family</strong> that your account was hacked. Warn them to ignore any messages that came from your account.' },
+      { icon: '5️⃣', text: '<strong>Once back in, turn on two-factor authentication</strong> so this cannot happen again (Settings → Security → Two-Factor Authentication).' },
+      { icon: '6️⃣', text: '<strong>Call a trusted family member</strong> to sit with you and help you go through these steps.' },
+    ],
+    note: '📞 If you cannot recover your account, call Facebook support or ask a trusted family member to help you start fresh with a new account.'
+  },
+  remote: {
+    title: '🧑‍💻 Someone Has Remote Access to Your Computer',
+    color: '#2563EB',
+    steps: [
+      { icon: '🚨', text: '<strong>Act immediately — every second counts!</strong>' },
+      { icon: '1️⃣', text: '<strong>Unplug your internet cable from the back of your computer</strong> — OR — turn off your WiFi router (the box with the blinking lights).' },
+      { icon: '2️⃣', text: '<strong>If you cannot do that, turn the computer completely off</strong> by holding the power button for 5 seconds.' },
+      { icon: '3️⃣', text: '<strong>Call a trusted family member right now</strong> and tell them what happened before turning the internet back on.' },
+      { icon: '4️⃣', text: '<strong>Do NOT turn the internet back on</strong> until a trusted person or local computer technician has checked your computer.' },
+      { icon: '5️⃣', text: '<strong>Change your passwords</strong> from a different device (another phone or computer) — your email, banking, and Facebook passwords.' },
+      { icon: '6️⃣', text: '<strong>Report it</strong> to the FTC: <strong>1-877-382-4357</strong>.' },
+    ],
+    note: '🛡️ Common remote access scams: "Microsoft" or "Apple" calls saying your computer has a virus. Real companies NEVER call you first!'
+  }
+};
+
+function showHelp(type) {
+  const data = helpContent[type];
+  if (!data) return;
+  document.getElementById('modalMain').style.display = 'none';
+  const helpEl = document.getElementById('modalHelp');
+  helpEl.style.display = 'block';
+  document.getElementById('modalHelpContent').innerHTML = `
+    <h2 style="color:${data.color}; font-family:'Lora',serif; font-size:1.5rem; margin-bottom:16px;">${data.title}</h2>
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:16px;">
+      ${data.steps.map(s => `
+        <div style="display:flex; gap:12px; align-items:flex-start; background:#f8f8f6; border-radius:12px; padding:14px 16px;">
+          <span style="font-size:1.3rem; flex-shrink:0;">${s.icon}</span>
+          <span style="font-size:1rem; line-height:1.6;">${s.text}</span>
+        </div>`).join('')}
+    </div>
+    <div style="background:#FEF9E7; border:2px solid #F5C264; border-radius:12px; padding:14px 16px; font-size:0.97rem; font-weight:600; color:#7A4A08;">
+      ${data.note}
+    </div>
+  `;
+}
+
+// ── BASIC KEYWORD SCAM CHECK (all tiers) ──
+function checkScamBasic() {
+  const text = document.getElementById('scamTextBasic').value.toLowerCase();
+  const result = document.getElementById('scamResultBasic');
+  if (!text.trim()) { alert('Please paste a message first!'); return; }
+  const scamKeywords = ['urgent','act now','gift card','wire transfer','arrested','suspended','winner','verify your account','social security','bitcoin','western union','irs','medicare','click here','confirm your password','unusual activity','account compromised'];
+  const hits = scamKeywords.filter(w => text.includes(w));
+  result.classList.add('show');
+  if (hits.length >= 3) {
+    result.className = 'result-box show result-danger';
+    result.innerHTML = '<h4>🚨 This Looks Like a SCAM!</h4><p>Found ' + hits.length + ' red flag phrases: <strong>' + hits.join(', ') + '</strong>. Do NOT click any links or send money.</p><p style="margin-top:8px;font-weight:700;">✅ Delete this message and call a trusted family member.</p>';
+  } else if (hits.length >= 1) {
+    result.className = 'result-box show result-caution';
+    result.innerHTML = '<h4>⚠️ Be Cautious</h4><p>Found suspicious phrase(s): <strong>' + hits.join(', ') + '</strong>. Don\'t click any links. Call the company directly using a number from their official website.</p>';
+  } else {
+    result.className = 'result-box show result-safe';
+    result.innerHTML = '<h4>✅ No Obvious Red Flags</h4><p>No common scam phrases found, but always trust your gut. When in doubt, call a trusted family member before doing anything.</p>';
+  }
+}
+window.checkScamBasic = checkScamBasic;
+
+// ── API KEY ──
+function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key.startsWith('sk-ant-')) {
+    alert('That doesn\'t look right. Your API key should start with "sk-ant-"');
+    return;
+  }
+  sessionStorage.setItem('safeguard_apikey', key);
+  document.getElementById('apiKeyInput').value = '';
+  document.getElementById('apiKeyStatus').style.display = 'block';
+  document.getElementById('apiKeyStatus').textContent = '✅ Key saved! You can now use the AI checker tools below.';
+  document.getElementById('apiKeyStatus').style.color = 'var(--teal)';
+}
+function clearApiKey() {
+  sessionStorage.removeItem('safeguard_apikey');
+  document.getElementById('apiKeyInput').value = '';
+  document.getElementById('apiKeyStatus').style.display = 'block';
+  document.getElementById('apiKeyStatus').textContent = '🗑️ Key cleared.';
+  document.getElementById('apiKeyStatus').style.color = 'var(--red)';
+}
+function getApiKey() {
+  return sessionStorage.getItem('safeguard_apikey') || '';
+}
+window.saveApiKey = saveApiKey;
+window.clearApiKey = clearApiKey;
+
+async function checkScam() {
+  const text = document.getElementById('scamText').value.trim();
+  if (!text) { alert('Please paste a message first!'); return; }
+
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    alert('Please enter your API key in the setup box above first!');
+    return;
+  }
+
+  const result = document.getElementById('scamResult');
+  result.className = 'result-box show result-caution';
+  result.innerHTML = '<h4 style="display:flex;align-items:center;gap:8px;">🔍 Analyzing your message, please wait...</h4>';
+
+  try {
+    const prompt = 'A senior citizen received this message and wants to know if it is a scam. Analyze it carefully:\n\n"' + text + '"\n\nRespond in this exact JSON format with no markdown:\n{"verdict":"SCAM","confidence":"high","summary":"plain English verdict","redFlags":["flag1"],"whatToDo":["action1","action2","action3"],"scamType":"scam type or null"}';
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true",
+        "x-api-key": apiKey
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 800,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.content.map(i => i.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+
+    const styles = {
+      SCAM: { cls: 'result-danger', icon: '🚨', title: 'This Is a SCAM!' },
+      LIKELY_SCAM: { cls: 'result-danger', icon: '🚨', title: 'This Looks Like a Scam' },
+      SUSPICIOUS: { cls: 'result-caution', icon: '⚠️', title: 'Be Cautious — Something Seems Off' },
+      SAFE: { cls: 'result-safe', icon: '✅', title: 'Looks Okay' }
+    };
+    const s = styles[parsed.verdict] || styles.SUSPICIOUS;
+
+    result.className = `result-box show ${s.cls}`;
+    result.innerHTML = `
+      <h4>${s.icon} ${s.title}</h4>
+      <p style="font-weight:700;margin-bottom:10px;">${parsed.summary}</p>
+      ${parsed.scamType ? `<p style="margin-bottom:10px;">📋 <strong>Scam type:</strong> ${parsed.scamType}</p>` : ''}
+      ${parsed.redFlags?.length ? `<p style="font-weight:800;margin-bottom:6px;">🚩 Red flags we spotted:</p><ul>${parsed.redFlags.map(f => `<li>${f}</li>`).join('')}</ul>` : ''}
+      <p style="font-weight:800;margin-top:12px;margin-bottom:6px;">✅ What to do:</p>
+      <ul>${parsed.whatToDo.map(a => `<li>${a}</li>`).join('')}</ul>`;
+  } catch(e) {
+    // Fallback to keyword scan
+    const lower = text.toLowerCase();
+    const scamKeywords = ['urgent','act now','gift card','wire transfer','arrested','suspended','winner','verify your account','social security','bitcoin','western union'];
+    const hits = scamKeywords.filter(w => lower.includes(w));
+    result.className = hits.length >= 2 ? 'result-box show result-danger' : hits.length === 1 ? 'result-box show result-caution' : 'result-box show result-safe';
+    result.innerHTML = hits.length >= 2
+      ? `<h4>🚨 This Looks Like a Scam!</h4><p>Found ${hits.length} warning signs: ${hits.join(', ')}. Do not click any links or send money.</p>`
+      : hits.length === 1
+      ? `<h4>⚠️ Be Cautious</h4><p>Found a suspicious phrase: "${hits[0]}". Call a trusted person before doing anything.</p>`
+      : `<h4>✅ Looks Okay</h4><p>No obvious scam phrases found, but always trust your gut. When in doubt, check with a trusted family member.</p>`;
+  }
+}
+
+async function checkPhone() {
+  const phone = document.getElementById('phoneInput').value.trim();
+  if (!phone) { alert('Please enter a phone number!'); return; }
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    alert('Please enter your API key in the setup box above first!');
+    return;
+  }
+  const res = document.getElementById('phoneResult');
+
+  res.innerHTML = `<div style="background:var(--teal-pale);border:2px solid var(--teal);border-radius:12px;padding:16px 20px;color:var(--teal);font-size:1rem;font-weight:700;display:flex;align-items:center;gap:10px;">
+    <span style="font-size:1.4rem;">🔍</span> Analyzing this phone number, please wait...
+  </div>`;
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true",
+        "x-api-key": apiKey
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{
+          role: "user",
+          content: `A senior citizen received a call from this phone number: "${phone}". 
+
+Analyze this number and provide helpful guidance. Consider:
+- Is this a known area code pattern used by scammers (e.g. spoofed government numbers, 809/876/284 Caribbean toll traps, 900 numbers, etc.)?
+- Does it match any well-known legitimate organizations (IRS is 1-800-829-1040, SSA is 1-800-772-1213, Medicare is 1-800-633-4227, etc.)?
+- What type of scam commonly uses numbers like this?
+- What should they do?
+
+Respond in this exact JSON format with no markdown or extra text:
+{
+  "riskLevel": "HIGH",
+  "summary": "One sentence plain-English summary of what this number likely is",
+  "details": "2-3 sentences explaining what you know about this type of number or area code",
+  "whatToDo": ["Step 1 action", "Step 2 action", "Step 3 action"],
+  "isKnownScam": true
+}`
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(`API error ${response.status}: ${errText}`);
+    }
+
+    const data = await response.json();
+    const text = data.content.map(i => i.text || '').join('');
+    const clean = text.replace(/```json|```/g, '').trim();
+    const result = JSON.parse(clean);
+
+    const colors = {
+      HIGH: { bg: '#FDECEB', border: '#F5C6C2', text: '#7B1A12', icon: '🚨', label: 'HIGH RISK — Likely a Scam' },
+      MEDIUM: { bg: '#FEF0CC', border: '#F5D98A', text: '#7A4A08', icon: '⚠️', label: 'BE CAUTIOUS' },
+      LOW: { bg: '#FEF0CC', border: '#F5D98A', text: '#7A4A08', icon: '⚠️', label: 'UNCERTAIN — Proceed Carefully' },
+      LEGITIMATE: { bg: '#D6F0EB', border: '#A8DDD4', text: '#1A5244', icon: '✅', label: 'Appears Legitimate' }
+    };
+    const c = colors[result.riskLevel] || colors.MEDIUM;
+
+    res.innerHTML = `
+      <div style="background:${c.bg};border:2px solid ${c.border};border-radius:14px;padding:20px 22px;color:${c.text};">
+        <div style="font-size:1.2rem;font-weight:900;margin-bottom:8px;">${c.icon} ${c.label}</div>
+        <div style="font-size:1.05rem;font-weight:700;margin-bottom:10px;">${result.summary}</div>
+        <div style="font-size:0.97rem;font-weight:500;margin-bottom:14px;opacity:0.9;">${result.details}</div>
+        <div style="font-weight:800;margin-bottom:8px;">What you should do:</div>
+        <ol style="padding-left:20px;display:flex;flex-direction:column;gap:6px;">
+          ${result.whatToDo.map(s => `<li style="font-size:0.97rem;">${s}</li>`).join('')}
+        </ol>
+      </div>`;
+  } catch (e) {
+    res.innerHTML = `<div style="background:var(--red-pale);border:2px solid #F5C6C2;border-radius:12px;padding:16px 20px;color:#7B1A12;font-size:1rem;font-weight:600;">
+      <strong>⚠️ Error:</strong> ${e.message}<br><br>
+      <strong>💡 Try searching this number at</strong> <strong>800notes.com</strong> or <strong>whocallsme.com</strong> — free sites where people report scam numbers.
+    </div>`;
+  }
+}
+
+// ── QUIZ ──
+const questions = [
+  { q: "You get an email saying 'Your Facebook password needs to be reset immediately or your account will be deleted!' What do you do?", options: ["Click the link in the email immediately", "Delete the email and go directly to facebook.com yourself", "Reply to the email asking if it's real", "Call the phone number in the email"], correct: 1, explain: "Always go directly to a website by typing the address in yourself. Never click links in suspicious emails, even if they look real." },
+  { q: "Someone calls and says they're from Microsoft. They say your computer has a virus and they need to access it remotely. What should you do?", options: ["Let them access your computer so they can fix it", "Give them your computer password", "Hang up immediately — it's a scam!", "Pay the $299 fee they're asking for"], correct: 2, explain: "Microsoft, Apple, and other tech companies NEVER call you out of the blue. This is one of the most common scams targeting seniors. Hang up!" },
+  { q: "Your 'grandson' calls saying he's in jail in another state and needs you to buy iTunes gift cards to pay for bail. What do you do?", options: ["Buy the gift cards right away — family comes first", "Hang up and call your grandson directly on his known number", "Give your credit card number over the phone", "Ask them to call back later"], correct: 1, explain: "This is called the 'Grandparent Scam.' Always verify by calling the family member yourself using a number you already know. Real bail situations never involve gift cards!" },
+  { q: "A Facebook message from your friend says: 'OMG, I just got $5,000 from this government grant program! Here's the link to claim yours!' What's this?", options: ["A real government grant — apply immediately!", "Probably a scam — your friend's account may be hacked", "A great opportunity — share it with all your friends", "A political message — just ignore it"], correct: 1, explain: "Scammers often hack accounts and send messages to all the friends. Call your friend directly to see if they really sent it. Real government grants don't come through Facebook." },
+  { q: "A pop-up appears on your computer screen saying 'VIRUS DETECTED! Call 1-800-555-9999 NOW!' with a loud alarm sound. What do you do?", options: ["Call the number right away to remove the virus", "Give them your credit card to fix the problem", "Close the browser or restart your computer — it's a scam!", "Download the software they suggest"], correct: 2, explain: "These fake pop-ups are designed to scare you. Close the browser window (or restart if needed). Your computer is fine. Never call those numbers!" },
+  { q: "You receive an email from 'paypal-security@gmail.com' asking you to verify your PayPal account. What's suspicious?", options: ["Nothing seems wrong — PayPal uses Gmail", "Real PayPal emails come from @paypal.com, not Gmail", "The email looks official so it must be real", "You should click to verify just in case"], correct: 1, explain: "Always check the email address carefully. Real companies email you from their own domain (e.g., @paypal.com, @facebook.com). Gmail addresses for big companies are always fake!" },
+  { q: "What is 'two-factor authentication' and should you use it?", options: ["A way to have two email addresses — skip it", "An extra security step that texts you a code when logging in — YES, use it!", "Something only young people need", "A way scammers trick you — avoid it"], correct: 1, explain: "Two-factor authentication is one of the BEST ways to protect your accounts. Even if someone steals your password, they still can't log in without the code sent to your phone." },
+  { q: "How often should you update your passwords?", options: ["Never — changing them is confusing", "Every few years is fine", "Change them if you suspect a breach, and make them strong from the start", "Every single day"], correct: 2, explain: "You don't need to change passwords constantly, but make them strong from the start. Change any password right away if you think an account might be compromised." },
+  { q: "You won a free cruise! The email says to pay a $49 'processing fee' with a gift card to claim it. What do you do?", options: ["It sounds too good to be true — delete the email", "Buy the gift cards — $49 for a cruise is a steal!", "Forward it to all your friends", "Call the number to get more details"], correct: 0, explain: "If you didn't enter a contest, you can't win one. And nobody ever needs to pay a fee — especially in gift cards — to collect a real prize. This is always a scam!" },
+  { q: "Your bank is calling about a suspicious charge and needs you to 'confirm' your full account number and PIN. What do you do?", options: ["Give them the information — they're your bank!", "Hang up, then call your bank directly using the number on your card", "Give them just your account number, not the PIN", "Stay on the line while they 'verify' your account"], correct: 1, explain: "Your real bank will NEVER ask for your full account number or PIN over the phone. Hang up and call the number printed on the back of your debit/credit card to verify." },
+];
+
+let currentQ = 0, score = 0, answered = false;
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('quizQuestion').textContent = `${currentQ + 1}. ${q.q}`;
+  const opts = document.getElementById('quizOptions');
+  opts.innerHTML = '';
+  q.options.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = o;
+    btn.onclick = () => answerQuestion(i);
+    opts.appendChild(btn);
+  });
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('quizNextBtn').style.display = 'none';
+  document.getElementById('quizScore').textContent = `Score: ${score} / ${currentQ}`;
+  document.getElementById('quizProgress').style.width = `${(currentQ / questions.length) * 100}%`;
+  document.getElementById('quizProgressLabel').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  answered = false;
+}
+function answerQuestion(i) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts[i].classList.add(i === q.correct ? 'correct' : 'wrong');
+  opts[q.correct].classList.add('correct');
+  opts.forEach(o => o.style.pointerEvents = 'none');
+  const fb = document.getElementById('quizFeedback');
+  if (i === q.correct) {
+    score++;
+    fb.className = 'quiz-feedback show correct-fb';
+    fb.innerHTML = `✅ <strong>Correct!</strong> ${q.explain}`;
+  } else {
+    fb.className = 'quiz-feedback show wrong-fb';
+    fb.innerHTML = `❌ <strong>Not quite.</strong> ${q.explain}`;
+  }
+  document.getElementById('quizScore').textContent = `Score: ${score} / ${currentQ + 1}`;
+  if (currentQ < questions.length - 1) {
+    document.getElementById('quizNextBtn').style.display = 'flex';
+  } else {
+    document.getElementById('quizNextBtn').style.display = 'none';
+    setTimeout(showFinalScore, 400);
+  }
+}
+function nextQuestion() { currentQ++; renderQuestion(); }
+function resetQuiz() { currentQ = 0; score = 0; renderQuestion(); }
+function showFinalScore() {
+  const pct = Math.round((score / questions.length) * 100);
+  const msg = pct >= 80 ? '🌟 Excellent! You\'re very well-prepared to spot scams!' : pct >= 60 ? '👍 Good job! Review the questions you missed to sharpen your skills.' : '📚 Keep learning! Review the tips in this app and try again.';
+  document.getElementById('quizFeedback').className = 'quiz-feedback show correct-fb';
+  document.getElementById('quizFeedback').innerHTML = `<strong>Quiz Complete! Final Score: ${score}/${questions.length} (${pct}%)</strong><br>${msg}`;
+}
+renderQuestion();
+
+// ── CHECKLIST ──
+const checklistData = [
+  { title: "Enable two-factor authentication on email", desc: "Gmail: Settings → Security → 2-Step Verification. Yahoo: Account Security → Two-step verification." },
+  { title: "Enable two-factor authentication on Facebook", desc: "Settings & Privacy → Settings → Security and Login → Two-Factor Authentication." },
+  { title: "Set Facebook profile to Friends Only", desc: "Settings → Privacy → Who can see your future posts → Friends." },
+  { title: "Create a strong, unique password for email", desc: "At least 12 characters. Use a passphrase (3+ random words). Write it down and store safely." },
+  { title: "Create a strong, unique password for Facebook", desc: "Different from your email password! Use the Password Helper tab for ideas." },
+  { title: "Write down trusted contacts with phone numbers", desc: "Keep a printed list somewhere safe at home — in case your phone or computer stops working." },
+  { title: "Update your computer / phone software", desc: "Windows: Start → Settings → Windows Update. iPhone: Settings → General → Software Update." },
+  { title: "Check that antivirus is running", desc: "Windows Defender is built into Windows 10/11. Go to Windows Security to verify it's active." },
+  { title: "Review your Facebook friend list", desc: "Remove anyone you don't know personally. Scammers create fake accounts to access your info." },
+  { title: "Check your email's spam/junk folder settings", desc: "Make sure your email is filtering suspicious messages automatically." },
+  { title: "Back up important photos", desc: "Copy family photos to a USB drive, external hard drive, or ask a family member to help with cloud backup." },
+  { title: "Bookmark important websites you use", desc: "Add your bank, email, Facebook to bookmarks so you don't have to type the address and risk typos." },
+];
+
+const checklistEl = document.getElementById('checklistItems');
+let checkStates = new Array(checklistData.length).fill(false);
+
+function renderChecklist() {
+  checklistEl.innerHTML = '';
+  checklistData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'checklist-item';
+    div.innerHTML = `<div class="check-box ${checkStates[i] ? 'checked' : ''}" onclick="toggleCheck(${i})">${checkStates[i] ? '✓' : ''}</div>
+      <div class="check-label">
+        <strong style="${checkStates[i] ? 'text-decoration:line-through;opacity:0.6;' : ''}">${item.title}</strong>
+        <span>${item.desc}</span>
+      </div>`;
+    checklistEl.appendChild(div);
+  });
+  const done = checkStates.filter(Boolean).length;
+  document.getElementById('checklistProgress').style.width = `${(done / checklistData.length) * 100}%`;
+  document.getElementById('checklistLabel').textContent = `${done} of ${checklistData.length} completed`;
+}
+function toggleCheck(i) {
+  checkStates[i] = !checkStates[i];
+  renderChecklist();
+}
+renderChecklist();
+
+// ── PASSWORDS ──
+function checkPassword() {
+  const pw = document.getElementById('passwordInput').value;
+  let score = 0;
+  let tips = [];
+  if (pw.length >= 8) score++; else tips.push('Use at least 8 characters');
+  if (pw.length >= 12) score++; else if (pw.length >= 8) tips.push('Make it 12+ characters for extra security');
+  if (/[A-Z]/.test(pw)) score++; else tips.push('Add at least one capital letter');
+  if (/[0-9]/.test(pw)) score++; else tips.push('Add at least one number');
+  if (/[^a-zA-Z0-9]/.test(pw)) score++; else tips.push('Add a symbol like ! @ # $');
+  if (!/password|123456|qwerty|abc123|letmein/i.test(pw)) score++; else { score = 0; tips = ['This is a very common, easily guessed password — please choose a different one!']; }
+
+  const fill = document.getElementById('strengthFill');
+  const label = document.getElementById('strengthLabel');
+  const pct = Math.round((score / 6) * 100);
+  fill.style.width = pct + '%';
+  if (score <= 2) { fill.style.background = '#C0392B'; label.textContent = '⚠️ Weak password'; label.style.color='#C0392B'; }
+  else if (score <= 4) { fill.style.background = '#D4922A'; label.textContent = '🟡 Medium — could be stronger'; label.style.color='#D4922A'; }
+  else { fill.style.background = '#2A7A6B'; label.textContent = '✅ Strong password!'; label.style.color='#2A7A6B'; }
+
+  const tipsEl = document.getElementById('passwordTips');
+  if (tips.length > 0) {
+    tipsEl.innerHTML = '<ul style="padding-left:22px;color:var(--text-mid);font-size:1rem;">' + tips.map(t => `<li>${t}</li>`).join('') + '</ul>';
+  } else {
+    tipsEl.innerHTML = '<p style="color:var(--teal);font-weight:700;">✅ Great password! Make sure to write it down and store it safely.</p>';
+  }
+}
+
+const words = ['apple','river','castle','cloud','thunder','pencil','kitten','garden','morning','eagle','silver','bridge','candle','whisper','gentle','ocean','meadow','rainbow','captain','balloon','anchor','cookie','butter','window','blossom'];
+function generatePassphrase() {
+  const selected = [];
+  const used = new Set();
+  while (selected.length < 4) {
+    const w = words[Math.floor(Math.random() * words.length)];
+    if (!used.has(w)) { used.add(w); selected.push(w); }
+  }
+  const sep = ['.','-','_','!'][Math.floor(Math.random()*4)];
+  document.getElementById('passphraseExample').textContent = selected.join(sep) + Math.floor(Math.random()*90+10);
+}
+
+// ── TRUSTED CONTACTS ──
+let contacts = [
+  { name: 'Family Member', role: 'Family', phone: '' },
+  { name: 'Close Friend', role: 'Friend', phone: '' },
+];
+
+function renderContacts() {
+  const grid = document.getElementById('trustedContactsList');
+  grid.innerHTML = '<div class="contact-grid">' + contacts.map((c, i) => `
+    <div class="contact-card">
+      <div class="contact-avatar">${c.name.charAt(0)}</div>
+      <div class="role">${c.role}</div>
+      <h4>${c.name}</h4>
+      <p>${c.phone || 'No number yet'}</p>
+      <button class="call-btn" onclick="editContact(${i})">✏️ Edit</button>
+    </div>`).join('') + '</div>';
+}
+
+function addContact() {
+  const name = prompt('Enter their name:');
+  if (!name) return;
+  const role = prompt('What is their relationship to you? (e.g. Daughter, Neighbor, Doctor)') || 'Trusted Person';
+  const phone = prompt('Enter their phone number:') || '';
+  contacts.push({ name, role, phone });
+  renderContacts();
+}
+
+function editContact(i) {
+  contacts[i].name = prompt('Name:', contacts[i].name) || contacts[i].name;
+  contacts[i].role = prompt('Relationship:', contacts[i].role) || contacts[i].role;
+  contacts[i].phone = prompt('Phone number:', contacts[i].phone) || contacts[i].phone;
+  renderContacts();
+}
+
+renderContacts();
+
+// ── EXPOSE ALL ONCLICK FUNCTIONS TO GLOBAL SCOPE ──
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.backToMenu = backToMenu;
+window.showHelp = showHelp;
+window.showTab = showTab;
+window.checkScam = checkScam;
+window.checkPhone = checkPhone;
+window.nextQuestion = nextQuestion;
+window.resetQuiz = resetQuiz;
+window.toggleCheck = toggleCheck;
+window.checkPassword = checkPassword;
+window.generatePassphrase = generatePassphrase;
+window.addContact = addContact;
+window.editContact = editContact;
+</script>
+</body>
+</html>

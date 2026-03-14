@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeGuard – Your Digital Safety Helper</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF6EC;
+    --warm-white: #FFFAF4;
+    --gold: #D4922A;
+    --gold-light: #F5C264;
+    --gold-pale: #FEF0CC;
+    --teal: #2A7A6B;
+    --teal-light: #3BA892;
+    --teal-pale: #D6F0EB;
+    --red: #C0392B;
+    --red-pale: #FDECEB;
+    --orange: #FF6B35;
+    --blue: #2563EB;
+    --blue-pale: #EFF6FF;
+    --text-dark: #2C2416;
+    --text-mid: #5C4A2A;
+    --text-soft: #8B7355;
+    --border: #E8D5B0;
+    --shadow: 0 4px 24px rgba(44,36,22,0.10);
+    --shadow-lg: 0 8px 40px rgba(44,36,22,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    font-size: 18px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER / NAV ── */
+  header {
+    background: linear-gradient(135deg, #2A7A6B 0%, #1a5c50 100%);
+    color: white;
+    padding: 22px 48px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-icon {
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  .logo-text h1 {
+    font-family: 'Lora', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .logo-text p {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    font-weight: 600;
+  }
+  nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-link {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-link:hover {
+    background: rgba(255,255,255,0.15);
+    color: white;
+  }
+  .nav-cta {
+    background: var(--orange);
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 10px 22px;
+    border-radius: 12px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(255,107,53,0.4);
+    margin-left: 8px;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,53,0.5); }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, #2A7A6B 0%, #1e6b5e 40%, #1a5c50 100%);
+    color: white;
+    padding: 100px 48px 90px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(245,194,100,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(255,255,255,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 999px;
+    padding: 6px 18px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero h2 {
+    font-family: 'Lora', serif;
+    font-size: 3.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 22px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h2 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 580px;
+    margin: 0 auto 40px;
+    font-weight: 600;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--orange);
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.1rem;
+    padding: 16px 36px;
+    border-radius: 16px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(255,107,53,0.45);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(255,107,53,0.55); }
+  .btn-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 16px 32px;
+    border-radius: 16px;
+    border: 2px solid rgba(255,255,255,0.35);
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    animation: fadeUp 0.6s 0.4s ease both;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-number {
+    font-family: 'Lora', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 80px 32px;
+  }
+  section.alt-bg {
+    max-width: 100%;
+    background: var(--warm-white);
+    padding: 80px 32px;
+  }
+  section.alt-bg .inner {
+    max-width: 1020px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--teal-pale);
+    color: var(--teal);
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 16px;
+  }
+  .section-label.gold { background: var(--gold-pale); color: #A06820; }
+  .section-label.red { background: var(--red-pale); color: var(--red); }
+
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .section-sub {
+    font-size: 1.1rem;
+    color: var(--text-mid);
+    max-width: 560px;
+    margin-bottom: 52px;
+  }
+
+  /* ── FEATURE GRID ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .feature-card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 30px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .feature-card.teal { border-top: 5px solid var(--teal); }
+  .feature-card.gold { border-top: 5px solid var(--gold); }
+  .feature-card.red { border-top: 5px solid var(--red); }
+  .feature-card.blue { border-top: 5px solid var(--blue); }
+  .feature-card.orange { border-top: 5px solid var(--orange); }
+  .feature-card.teal-dark { border-top: 5px solid #1a5c50; }
+
+  .feature-icon {
+    font-size: 2.2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .feature-card h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+  }
+  .feature-card p {
+    font-size: 0.98rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+    counter-reset: steps;
+  }
+  .step {
+    text-align: center;
+    counter-increment: steps;
+    position: relative;
+  }
+  .step-circle {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 20px;
+    box-shadow: 0 6px 20px rgba(42,122,107,0.35);
+    border: 3px solid rgba(255,255,255,0.5);
+  }
+  .step h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+  }
+  .step p {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+  }
+  .step-number {
+    position: absolute;
+    top: -6px; right: calc(50% - 42px);
+    width: 24px; height: 24px;
+    background: var(--gold);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .testimonial {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 30px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+  }
+  .testimonial-quote {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .testimonial-quote::before { content: '\201C'; color: var(--teal); font-size: 1.6rem; line-height: 0; vertical-align: -0.4em; }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .author-avatar {
+    width: 46px; height: 46px;
+    background: linear-gradient(135deg, var(--teal-pale), var(--gold-pale));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--teal);
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+  }
+  .author-name {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--text-dark);
+  }
+  .author-desc {
+    font-size: 0.87rem;
+    color: var(--text-soft);
+    font-weight: 600;
+  }
+  .stars {
+    color: var(--gold);
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+
+  /* ── TRUST BANNER ── */
+  .trust-banner {
+    background: linear-gradient(135deg, #2A7A6B 0%, #1a5c50 100%);
+    color: white;
+    padding: 72px 48px;
+    text-align: center;
+  }
+  .trust-banner h2 {
+    font-family: 'Lora', serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .trust-banner h2 em { font-style: italic; color: var(--gold-light); }
+  .trust-banner p {
+    font-size: 1.1rem;
+    opacity: 0.88;
+    max-width: 520px;
+    margin: 0 auto 36px;
+    font-weight: 600;
+  }
+
+  /* ── TOPICS ── */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .topic-card {
+    background: white;
+    border-radius: 20px;
+    padding: 26px 28px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .topic-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .topic-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    width: 54px; height: 54px;
+    background: var(--teal-pale);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .topic-icon.gold-bg { background: var(--gold-pale); }
+  .topic-icon.red-bg { background: var(--red-pale); }
+  .topic-icon.blue-bg { background: var(--blue-pale); }
+  .topic-info h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--text-dark);
+  }
+  .topic-info p {
+    font-size: 0.93rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  /* ── FAQ ── */
+  .faq-list {
+    max-width: 720px;
+  }
+  .faq-item {
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .faq-question {
+    padding: 22px 26px;
+    font-weight: 800;
+    font-size: 1.05rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--text-dark);
+    transition: background 0.2s;
+  }
+  .faq-question:hover { background: var(--cream); }
+  .faq-chevron {
+    font-size: 1.1rem;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    color: var(--teal);
+  }
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s;
+    padding: 0 26px;
+    font-size: 1rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+    padding: 0 26px 22px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1a5c50;
+    color: rgba(255,255,255,0.8);
+    padding: 52px 48px 36px;
+  }
+  .footer-inner {
+    max-width: 1020px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    flex-wrap: wrap;
+  }
+  .footer-brand h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+  }
+  .footer-brand p {
+    font-size: 0.93rem;
+    line-height: 1.7;
+    max-width: 280px;
+  }
+  .footer-col h4 {
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 14px;
+  }
+  .footer-col a {
+    display: block;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    max-width: 1020px;
+    margin: 28px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-shield {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  /* ── ALERT BAR ── */
+  .alert-bar {
+    background: var(--gold-pale);
+    border-bottom: 2px solid var(--gold-light);
+    padding: 12px 32px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .alert-bar a {
+    color: var(--teal);
+    font-weight: 800;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ── PRICING ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    align-items: start;
+  }
+  .pricing-card {
+    background: white;
+    border-radius: 24px;
+    padding: 36px 32px;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border);
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .pricing-card.featured {
+    border-color: var(--teal);
+    box-shadow: 0 8px 40px rgba(42,122,107,0.18);
+  }
+  .pricing-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--teal);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 900;
+    padding: 5px 18px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    white-space: nowrap;
+  }
+  .pricing-tier {
+    font-size: 0.82rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-soft);
+    margin-bottom: 10px;
+  }
+  .pricing-price {
+    font-family: 'Lora', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .pricing-price span {
+    font-size: 1.1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: var(--text-soft);
+  }
+  .pricing-desc {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    margin-bottom: 28px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .pricing-features {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+  .pricing-features li {
+    font-size: 0.97rem;
+    color: var(--text-mid);
+    font-weight: 600;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pricing-features li:last-child { border-bottom: none; }
+  .pricing-features li .check { color: var(--teal); flex-shrink: 0; }
+  .pricing-btn {
+    display: block;
+    text-align: center;
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .pricing-btn.outline {
+    border: 2px solid var(--border);
+    color: var(--text-mid);
+    background: transparent;
+  }
+  .pricing-btn.outline:hover { border-color: var(--teal); color: var(--teal); }
+  .pricing-btn.teal-btn {
+    background: var(--teal);
+    color: white;
+    box-shadow: 0 4px 16px rgba(42,122,107,0.35);
+  }
+  .pricing-btn.teal-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(42,122,107,0.45); }
+  .pricing-btn.orange-btn {
+    background: var(--orange);
+    color: white;
+    box-shadow: 0 4px 16px rgba(255,107,53,0.35);
+  }
+  .pricing-btn.orange-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(255,107,53,0.45); }
+
+  /* ── API KEY ── */
+  .api-section {
+    background: #0f2a25;
+    padding: 80px 32px;
+  }
+  .api-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .api-section .section-label {
+    background: rgba(255,255,255,0.1);
+    color: var(--gold-light);
+  }
+  .api-section .section-title { color: white; }
+  .api-section .section-sub { color: rgba(255,255,255,0.7); }
+  .api-steps { display: flex; flex-direction: column; gap: 20px; }
+  .api-step {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .api-step-num {
+    width: 36px; height: 36px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: white;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .api-step-body h4 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 6px;
+  }
+  .api-step-body p {
+    font-size: 0.96rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+  }
+  .api-step-body a { color: var(--gold-light); text-decoration: underline; text-underline-offset: 3px; }
+  .api-note {
+    margin-top: 28px;
+    background: rgba(212,146,42,0.12);
+    border: 1px solid rgba(212,146,42,0.3);
+    border-radius: 14px;
+    padding: 18px 24px;
+    font-size: 0.93rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .api-note strong { color: var(--gold-light); }
+
+  /* ── CHECKOUT ── */
+  .checkout-section {
+    background: var(--warm-white);
+    padding: 80px 32px;
+    border-top: 2px solid var(--border);
+  }
+  .checkout-inner {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 620px) { .checkout-grid { grid-template-columns: 1fr; } }
+  .checkout-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    transition: box-shadow 0.2s;
+  }
+  .checkout-card:hover { box-shadow: var(--shadow-lg); }
+  .checkout-card.featured { border-color: var(--orange); }
+  .checkout-card-tier {
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-soft);
+    margin-bottom: 8px;
+  }
+  .checkout-card-price {
+    font-family: 'Lora', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .checkout-card-price span {
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: var(--text-soft);
+  }
+  .checkout-card-desc {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    font-weight: 600;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .paypal-btn-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  /* PayPal hosted button overrides */
+  .paypal-btn-wrap input[type="submit"],
+  .paypal-btn-wrap input[type="image"] {
+    cursor: pointer;
+  }
+  .checkout-note {
+    background: var(--teal-pale);
+    border: 1.5px solid #b2ddd6;
+    border-radius: 14px;
+    padding: 18px 24px;
+    font-size: 0.95rem;
+    color: var(--teal);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .checkout-note strong { color: #1a5c50; }
+
+  /* ── MEDIA ── */
+  @media (max-width: 768px) {
+    header { padding: 18px 20px; }
+    nav { display: none; }
+    .hero { padding: 60px 24px 60px; }
+    .hero h2 { font-size: 2.2rem; }
+    .hero-stats { gap: 28px; }
+    section { padding: 60px 24px; }
+    section.alt-bg { padding: 60px 24px; }
+    .section-title { font-size: 1.9rem; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer { padding: 40px 24px 28px; }
+    .trust-banner { padding: 52px 24px; }
+    .trust-banner h2 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ALERT BAR -->
+<div class="alert-bar">
+  🛡️ <strong>New:</strong> Scam text message checker now available on Pro. <a href="#pricing">See plans →</a>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-icon">🛡️</div>
+  <div class="logo-text">
+    <h1>SafeGuard</h1>
+    <p>Your Digital Safety Helper</p>
+  </div>
+  <nav>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#how-it-works">How It Works</a>
+    <a class="nav-link" href="#pricing">Pricing</a>
+    <a class="nav-link" href="#topics">Topics</a>
+    <a class="nav-link" href="#faq">FAQ</a>
+    <a class="nav-cta" href="#pricing">See Plans →</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🔒 Trusted by 50,000+ families</div>
+  <h2>Stay Safe Online — <em>Simple &amp; Stress-Free</em></h2>
+  <p>SafeGuard helps you spot scams, protect passwords, and navigate the internet with confidence — no tech experience needed.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="YOUR_APP_URL" target="_blank">🚀 Start Free Trial</a>
+    <a class="btn-secondary" href="#features">See What's Inside</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-number">50,000+</div>
+      <div class="stat-label">People Protected</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">12</div>
+      <div class="stat-label">Safety Tools</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Plans Available</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">5★</div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">✨ What's Inside</div>
+  <h2 class="section-title">Everything You Need to Stay Safe</h2>
+  <p class="section-sub">Six powerful tools designed to be easy enough for anyone to use — no confusing tech jargon.</p>
+
+  <div class="feature-grid">
+    <div class="feature-card teal">
+      <span class="feature-icon">🔍</span>
+      <h3>Scam Checker</h3>
+      <p>Paste any suspicious email, text, or website — our checker tells you if it's a scam and what to do next.</p>
+    </div>
+    <div class="feature-card gold">
+      <span class="feature-icon">🔑</span>
+      <h3>Password Helper</h3>
+      <p>Test the strength of your passwords, generate easy-to-remember passphrases, and learn what makes a great password.</p>
+    </div>
+    <div class="feature-card red">
+      <span class="feature-icon">📚</span>
+      <h3>Safety Quiz</h3>
+      <p>Test your knowledge with friendly quizzes on common scams and digital threats. Learn while you play!</p>
+    </div>
+    <div class="feature-card blue">
+      <span class="feature-icon">✅</span>
+      <h3>Safety Checklist</h3>
+      <p>A simple step-by-step checklist to secure your accounts, devices, and personal information.</p>
+    </div>
+    <div class="feature-card orange">
+      <span class="feature-icon">📞</span>
+      <h3>Trusted Contacts</h3>
+      <p>Store the names and numbers of people you trust — someone to call if you're not sure about something online.</p>
+    </div>
+    <div class="feature-card teal-dark">
+      <span class="feature-icon">🚨</span>
+      <h3>Emergency Help</h3>
+      <p>Instantly see who to contact if you think you've been scammed or your accounts have been compromised.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="alt-bg" id="how-it-works">
+  <div class="inner">
+    <div class="section-label gold">🗺️ How It Works</div>
+    <h2 class="section-title">Start Protecting Yourself in Minutes</h2>
+    <p class="section-sub">SafeGuard is designed to be simple. No accounts, no downloads, no fuss.</p>
+
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-circle">🌐</div>
+        <h3>Open in Any Browser</h3>
+        <p>Works on your phone, tablet, or computer — no app store needed. Just open and go.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-circle">🔎</div>
+        <h3>Choose Your Tool</h3>
+        <p>Check a suspicious email, test your password strength, or take a quick safety quiz.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-circle">📋</div>
+        <h3>Follow the Guidance</h3>
+        <p>Get clear, plain-English advice on exactly what to do — no confusing tech speak.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-circle">🛡️</div>
+        <h3>Stay Protected</h3>
+        <p>Work through the safety checklist to lock down your accounts and keep your information safe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section id="topics">
+  <div class="section-label red">📌 Topics We Cover</div>
+  <h2 class="section-title">The Online Threats That Matter Most</h2>
+  <p class="section-sub">SafeGuard focuses on the scams and risks that affect real people every day.</p>
+
+  <div class="topics-grid">
+    <div class="topic-card">
+      <div class="topic-icon red-bg">📧</div>
+      <div class="topic-info">
+        <h3>Phishing Emails</h3>
+        <p>Fake emails pretending to be your bank, Amazon, or the IRS — asking you to click a link or pay money.</p>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon gold-bg">💬</div>
+      <div class="topic-info">
+        <h3>Text Message Scams</h3>
+        <p>Texts about unpaid packages, prize winnings, or suspicious account activity designed to steal your information.</p>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon">📞</div>
+      <div class="topic-info">
+        <h3>Phone Call Fraud</h3>
+        <p>Callers pretending to be from Medicare, the IRS, or tech support asking for payments or personal details.</p>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon blue-bg">🔐</div>
+      <div class="topic-info">
+        <h3>Account Takeover</h3>
+        <p>How scammers get into your email and social media — and simple steps to lock them out for good.</p>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon gold-bg">💳</div>
+      <div class="topic-info">
+        <h3>Financial Scams</h3>
+        <p>Gift card scams, wire transfer fraud, fake lottery winnings, and romance scams targeting seniors.</p>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon red-bg">🛒</div>
+      <div class="topic-info">
+        <h3>Fake Websites & Stores</h3>
+        <p>How to spot copycat websites and online shops that take your money without delivering anything real.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="alt-bg">
+  <div class="inner">
+    <div class="section-label">💬 What People Are Saying</div>
+    <h2 class="section-title">Real Stories from Real People</h2>
+    <p class="section-sub">SafeGuard has helped thousands of families stay safer online.</p>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">My daughter set this up for me and now I actually feel confident checking my email. I caught a fake Amazon message the very first week!</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">M</div>
+          <div>
+            <div class="author-name">Margaret T.</div>
+            <div class="author-desc">Retired teacher, age 74</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">I set this up for my parents and they love it. The scam checker has already saved them from at least two fake IRS calls. Peace of mind for the whole family.</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">R</div>
+          <div>
+            <div class="author-name">Robert K.</div>
+            <div class="author-desc">Adult son, set up for his parents</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">The safety quiz is wonderful. I share it at our senior center and everyone loves learning this way. Simple, clear, no scary tech terms.</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">B</div>
+          <div>
+            <div class="author-name">Barbara W.</div>
+            <div class="author-desc">Senior center coordinator</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-label gold">❓ Common Questions</div>
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <p class="section-sub">Have questions? We have answers.</p>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Do I need to create an account to use SafeGuard?
+        <span class="faq-chevron">▾</span>
+      </div>
+      <div class="faq-answer">No account needed! SafeGuard works directly in your browser — no sign-up, no passwords, no personal information required. Just open it and start using it right away.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Is SafeGuard really free?
+        <span class="faq-chevron">▾</span>
+      </div>
+      <div class="faq-answer">SafeGuard offers a free trial so you can explore the app before committing. After the trial, plans start at $9.99/month. We offer three tiers — Free Trial, Family, and Pro — so you can choose the level of protection that fits your needs and budget.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Does it work on my phone or tablet?
+        <span class="faq-chevron">▾</span>
+      </div>
+      <div class="faq-answer">Absolutely! SafeGuard is designed to work beautifully on smartphones, tablets, and desktop computers. If you can open a browser, you can use SafeGuard.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        What if I think I've already been scammed?
+        <span class="faq-chevron">▾</span>
+      </div>
+      <div class="faq-answer">Don't panic! Open SafeGuard and tap the Emergency Help button at the top. It will walk you through exactly what to do — including who to call and how to protect yourself from further harm.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Is my information safe when I use SafeGuard?
+        <span class="faq-chevron">▾</span>
+      </div>
+      <div class="faq-answer">Yes! SafeGuard doesn't collect or store any of your personal information. Everything you type (like passwords or suspicious messages) stays on your own device and is never sent anywhere.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Can I share it with my family members?
+        <span class="faq-chevron">▾</span>
+      </div>
+      <div class="faq-answer">Please do! SafeGuard is designed to be shared. Send the link to anyone you care about — parents, grandparents, friends — who could benefit from a little extra help staying safe online.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-label">💳 Plans & Pricing</div>
+  <h2 class="section-title">Choose the Right Plan for You</h2>
+  <p class="section-sub">Start with a free trial. Upgrade by purchasing a license key below — delivered to your email instantly after payment.</p>
+
+  <div class="pricing-grid">
+
+    <!-- FREE TRIAL -->
+    <div class="pricing-card">
+      <div class="pricing-tier">Free Trial</div>
+      <div class="pricing-price">$0<span>/mo</span></div>
+      <p class="pricing-desc">Try the essentials and see how SafeGuard can help protect you online.</p>
+      <ul class="pricing-features">
+        <li><span class="check">✔</span> Home Dashboard</li>
+        <li><span class="check">✔</span> My Safety Checklist</li>
+        <li><span class="check">✔</span> Helpful Tips</li>
+      </ul>
+      <a class="pricing-btn outline" href="safeguard-app.html" target="_blank">Start Free Trial →</a>
+    </div>
+
+    <!-- FAMILY -->
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-tier">Family</div>
+      <div class="pricing-price">$9.99<span>/mo</span></div>
+      <p class="pricing-desc">Everything in Free, plus tools to keep the whole household safe and educated.</p>
+      <ul class="pricing-features">
+        <li><span class="check">✔</span> Home Dashboard</li>
+        <li><span class="check">✔</span> My Safety Checklist</li>
+        <li><span class="check">✔</span> Helpful Tips</li>
+        <li><span class="check">✔</span> Safety Quiz</li>
+        <li><span class="check">✔</span> Password Helper</li>
+        <li><span class="check">✔</span> Trusted Contacts</li>
+      </ul>
+      <a class="pricing-btn teal-btn" href="#checkout">Buy Family Plan →</a>
+    </div>
+
+    <!-- PRO -->
+    <div class="pricing-card">
+      <div class="pricing-tier">Pro</div>
+      <div class="pricing-price">$19.99<span>/mo</span></div>
+      <p class="pricing-desc">The full SafeGuard experience — including our powerful AI-driven Scam Checker.</p>
+      <ul class="pricing-features">
+        <li><span class="check">✔</span> Everything in Family</li>
+        <li><span class="check">✔</span> Scam Checker</li>
+        <li><span class="check">✔</span> Emergency Help</li>
+        <li><span class="check">✔</span> Priority Support</li>
+      </ul>
+      <a class="pricing-btn orange-btn" href="#checkout">Buy Pro Plan →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- API KEY -->
+<div class="api-section">
+  <div class="api-inner">
+    <div class="section-label">🔑 Setup Required for Pro</div>
+    <h2 class="section-title">Getting a Claude API Key</h2>
+    <p class="section-sub">SafeGuard's Scam Checker is powered by Claude AI. Pro users connect their own API key — you only pay for what you use.</p>
+
+    <div class="api-steps">
+      <div class="api-step">
+        <div class="api-step-num">1</div>
+        <div class="api-step-body">
+          <h4>Create a Free Anthropic Account</h4>
+          <p>Go to <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> and sign up for a free account.</p>
+        </div>
+      </div>
+      <div class="api-step">
+        <div class="api-step-num">2</div>
+        <div class="api-step-body">
+          <h4>Generate Your API Key</h4>
+          <p>Once logged in, click <strong style="color:white;">"API Keys"</strong> in the left sidebar, then click <strong style="color:white;">"Create Key"</strong>. Copy and save it somewhere safe — you won't be able to see it again.</p>
+        </div>
+      </div>
+      <div class="api-step">
+        <div class="api-step-num">3</div>
+        <div class="api-step-body">
+          <h4>Add a Payment Method</h4>
+          <p>Go to <strong style="color:white;">"Billing"</strong> in the sidebar and add a payment method. The API is pay-as-you-go with no monthly fee — you only pay for what you use.</p>
+        </div>
+      </div>
+      <div class="api-step">
+        <div class="api-step-num">4</div>
+        <div class="api-step-body">
+          <h4>Paste Your Key into SafeGuard</h4>
+          <p>That's it! Open SafeGuard Pro and paste your key where prompted. Your key is stored only on your device and never shared.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="api-note">
+      💡 <strong>Typical cost:</strong> Most SafeGuard Pro users spend less than $1–2/month on API usage. Anthropic's pricing is transparent and usage-based — no surprises.
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="checkout-section" id="checkout">
+  <div class="checkout-inner">
+    <div class="section-label" style="background:var(--gold-pale);color:#A06820;">🛒 Purchase a License</div>
+    <h2 class="section-title">Unlock Your Plan via PayPal</h2>
+    <p class="section-sub" style="margin-bottom:40px;">Pay securely through PayPal. Your license key will be emailed to you within minutes of payment — no account needed.</p>
+
+    <div class="checkout-grid">
+
+      <!-- FAMILY -->
+      <div class="checkout-card">
+        <div class="checkout-card-tier">Family Plan</div>
+        <div class="checkout-card-price">$9.99<span>/mo</span></div>
+        <p class="checkout-card-desc">Safety Quiz, Password Helper, Trusted Contacts + all Free features</p>
+        <div class="paypal-btn-wrap">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="rsweatland@orcannus.com">
+            <input type="hidden" name="item_name" value="SafeGuard Family Plan - Monthly License">
+            <input type="hidden" name="amount" value="9.99">
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="return" value="safeguard-thank-you.html">
+            <input type="hidden" name="cancel_return" value="safeguard-cancel.html">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="Buy Family Plan via PayPal" style="height:44px;">
+          </form>
+        </div>
+      </div>
+
+      <!-- PRO -->
+      <div class="checkout-card featured">
+        <div class="checkout-card-tier">Pro Plan</div>
+        <div class="checkout-card-price">$19.99<span>/mo</span></div>
+        <p class="checkout-card-desc">Scam Checker, Emergency Help, Priority Support + all Family features</p>
+        <div class="paypal-btn-wrap">
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="business" value="rsweatland@orcannus.com">
+            <input type="hidden" name="item_name" value="SafeGuard Pro Plan - Monthly License">
+            <input type="hidden" name="amount" value="19.99">
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="no_shipping" value="1">
+            <input type="hidden" name="return" value="safeguard-thank-you.html">
+            <input type="hidden" name="cancel_return" value="safeguard-cancel.html">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="Buy Pro Plan via PayPal" style="height:44px;">
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="checkout-note">
+      📧 <strong>How it works:</strong> After payment, PayPal will confirm your purchase and your license key will be emailed to the address on your PayPal account — usually within a few minutes. Enter the key inside SafeGuard to unlock your plan instantly.
+    </div>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="trust-banner">
+  <h2>Ready to Feel Safe Online? <em>Start your free trial today.</em></h2>
+  <p>Join over 50,000 people who use SafeGuard to stay protected from scams, fraud, and online threats.</p>
+  <a class="btn-primary" href="#pricing" style="font-size:1.15rem; padding: 18px 44px; display:inline-flex; align-items:center; gap:10px; text-decoration:none; border-radius:16px;">🛡️ See Plans & Pricing</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>🛡️ SafeGuard</h3>
+      <p>Your trusted digital safety helper — making the internet a safer place for everyone, one family at a time.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <a href="#">Scam Checker</a>
+      <a href="#">Password Helper</a>
+      <a href="#">Safety Quiz</a>
+      <a href="#">Safety Checklist</a>
+      <a href="#">Trusted Contacts</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#">Common Scams</a>
+      <a href="#">Emergency Help</a>
+      <a href="#">FAQ</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 SafeGuard by Orcannus Technologies. Plans from $9.99/month.</span>
+    <div class="footer-shield">🔒 No data collected · No ads · Free trial available</div>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.feature-card, .step, .testimonial, .topic-card, .faq-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
