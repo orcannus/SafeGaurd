@@ -3,277 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Cancelled – SafeGuard</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<title>SafeGuard – Order Cancelled | Orcannus Technologies</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream: #FDF6EC;
-    --warm-white: #FFFAF4;
-    --gold: #D4922A;
-    --gold-light: #F5C264;
-    --gold-pale: #FEF0CC;
-    --teal: #2A7A6B;
-    --teal-light: #3BA892;
-    --teal-pale: #D6F0EB;
-    --orange: #FF6B35;
-    --red: #C0392B;
-    --red-pale: #FDECEB;
-    --text-dark: #2C2416;
-    --text-mid: #5C4A2A;
-    --text-soft: #8B7355;
-    --border: #E8D5B0;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--cream);
-    color: var(--text-dark);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+  :root{--bg:#080c10;--card:#111820;--border:#1e2d3d;--accent:#00c8ff;--accent2:#0077ff;--text:#c9d1d9;--muted:#586069;--heading:#e6edf3;}
 
-  header {
-    background: linear-gradient(135deg, #2A7A6B 0%, #1a5c50 100%);
-    color: white;
-    padding: 22px 48px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  }
-  .logo-icon {
-    width: 52px; height: 52px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px;
-    flex-shrink: 0;
-    border: 2px solid rgba(255,255,255,0.3);
-  }
-  .logo-text h1 {
-    font-family: 'Lora', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-  }
-  .logo-text p {
-    font-size: 0.85rem;
-    opacity: 0.85;
-    font-weight: 600;
-  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,200,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+  .container{max-width:860px;margin:0 auto;padding:0 24px;position:relative;z-index:1;flex:1;display:flex;flex-direction:column;}
+  header{padding:28px 0 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;}
+  .logo span{color:var(--heading);}
+  .badge{font-family:'Share Tech Mono',monospace;font-size:0.7rem;background:rgba(0,200,255,0.08);border:1px solid rgba(0,200,255,0.2);color:var(--accent);padding:4px 10px;letter-spacing:0.1em;}
+  .main{flex:1;display:flex;align-items:center;justify-content:center;padding:60px 0;}
+  .card{background:var(--card);border:1px solid var(--border);padding:52px 48px;text-align:center;max-width:560px;width:100%;}
+  .icon{font-size:3.2rem;margin-bottom:24px;display:block;}
+  .status-label{font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .status-label::before,.status-label::after{content:'';display:block;width:30px;height:1px;opacity:0.4;}
+  h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--heading);letter-spacing:0.04em;line-height:1.1;margin-bottom:16px;}
+  h1 em{font-style:normal;color:var(--accent);}
+  p{font-size:0.95rem;color:var(--muted);line-height:1.75;margin-bottom:10px;max-width:420px;margin-left:auto;margin-right:auto;}
+  .divider{border:none;border-top:1px solid var(--border);margin:32px 0;}
+  .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+  .btn{font-family:'Share Tech Mono',monospace;font-size:0.78rem;letter-spacing:0.12em;padding:12px 26px;text-decoration:none;display:inline-block;transition:background 0.2s,border-color 0.2s;cursor:pointer;border:none;}
+  .btn-primary{background:var(--accent2);color:#fff;}
+  .btn-primary:hover{filter:brightness(1.15);}
+  .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+  .meta{font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.08em;margin-top:28px;}
+  footer{border-top:1px solid var(--border);padding:22px 0;text-align:center;font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.08em;position:relative;z-index:1;}
+  footer a{color:var(--accent);text-decoration:none;}
+  @keyframes scanline{0%{top:-5%}100%{top:105%}}
+  .scanline{position:fixed;left:0;width:100%;height:2px;background:linear-gradient(transparent,rgba(0,200,255,0.04),transparent);pointer-events:none;animation:scanline 8s linear infinite;z-index:9999;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .card{animation:fadeUp 0.5s ease both;}
 
-  main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 24px;
-  }
-
-  .card {
-    background: white;
-    border-radius: 28px;
-    padding: 56px 48px;
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 8px 48px rgba(44,36,22,0.12);
-    border: 1.5px solid var(--border);
-    animation: fadeUp 0.6s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .cancel-icon {
-    width: 88px; height: 88px;
-    background: linear-gradient(135deg, #e8a87c, #d4784a);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 42px;
-    margin: 0 auto 28px;
-    box-shadow: 0 8px 28px rgba(212,120,74,0.3);
-    animation: popIn 0.5s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
-  }
-
-  @keyframes popIn {
-    from { transform: scale(0.4); opacity: 0; }
-    to   { transform: scale(1); opacity: 1; }
-  }
-
-  .card h2 {
-    font-family: 'Lora', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 14px;
-  }
-  .card h2 em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  .card > p {
-    font-size: 1.05rem;
-    color: var(--text-mid);
-    line-height: 1.7;
-    margin-bottom: 32px;
-  }
-
-  .reassurance {
-    background: var(--teal-pale);
-    border-radius: 16px;
-    padding: 24px 28px;
-    margin: 0 0 28px;
-    text-align: left;
-  }
-  .reassurance h4 {
-    font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 14px;
-  }
-  .reassurance ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .reassurance li {
-    font-size: 0.95rem;
-    color: var(--text-dark);
-    font-weight: 600;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-  .reassurance li span.icon {
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .note {
-    background: var(--gold-pale);
-    border: 1.5px solid #E8C96A;
-    border-radius: 12px;
-    padding: 14px 18px;
-    font-size: 0.9rem;
-    color: var(--text-mid);
-    margin-bottom: 32px;
-    text-align: left;
-  }
-
-  .btn-primary {
-    background: var(--orange);
-    color: white;
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 1.05rem;
-    padding: 15px 36px;
-    border-radius: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 4px 18px rgba(255,107,53,0.4);
-    margin-bottom: 12px;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.5); }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--teal-pale);
-    color: var(--teal);
-    text-decoration: none;
-    font-weight: 800;
-    font-size: 1.0rem;
-    padding: 14px 32px;
-    border-radius: 14px;
-    border: 2px solid var(--teal-light);
-    transition: background 0.2s;
-    margin-left: 10px;
-    margin-bottom: 12px;
-  }
-  .btn-secondary:hover { background: #c2e8e2; }
-
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
-    margin-bottom: 16px;
-  }
-
-  .btn-back {
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 0.9rem;
-    color: var(--text-soft);
-    text-decoration: none;
-    font-weight: 700;
-  }
-  .btn-back:hover { color: var(--teal); }
-
-  footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 0.85rem;
-    color: var(--text-soft);
-    border-top: 1px solid var(--border);
-  }
+  .card{border-color:rgba(255,160,0,0.25);}
+  .status-label{color:#f0a500;}
+  .status-label::before,.status-label::after{background:#f0a500;}
+  .x-ring{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;border:2px solid #f0a500;background:rgba(240,165,0,0.06);margin-bottom:22px;font-size:2rem;box-shadow:0 0 24px rgba(240,165,0,0.1);}
+  .reassure{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-left:3px solid #00c8ff;padding:14px 18px;margin-top:22px;text-align:left;font-size:0.85rem;color:var(--text);line-height:1.6;}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="logo-icon">🛡️</div>
-  <div class="logo-text">
-    <h1>SafeGuard</h1>
-    <p>Your Digital Safety Helper</p>
+<div class="scanline"></div>
+<div class="container">
+  <header>
+    <div class="logo"><span>ORCANNUS</span> TECHNOLOGIES</div>
+    <div class="badge">SafeGuard // ORDER CANCELLED</div>
+  </header>
+  <div class="main">
+    <div class="card">
+      <div class="x-ring">✕</div>
+      <div class="status-label">Order Cancelled</div>
+      <h1>No Charges<br><em>Were Made</em></h1>
+      <p>Your order was cancelled and no payment was processed. You can return to the pricing page anytime to complete your purchase.</p>
+      <div class="reassure">
+        Your payment information was handled entirely by PayPal — nothing was stored by Orcannus Technologies. You can try again safely at any time.
+      </div>
+      <hr class="divider">
+      <div class="btn-row">
+        <a href="https://orcannus.github.io/safeguard/pricing.html" class="btn btn-primary">RETURN TO PRICING</a>
+        <a href="mailto:rsweatland@orcannus.com" class="btn btn-outline">CONTACT US</a>
+      </div>
+      <div class="meta">&copy; 2026 ORCANNUS TECHNOLOGIES — ALL RIGHTS RESERVED</div>
+    </div>
   </div>
-</header>
-
-<main>
-  <div class="card">
-    <div class="cancel-icon">↩</div>
-    <h2>No worries — <em>you're not charged.</em></h2>
-    <p>Your payment was cancelled and nothing was taken from your account. You can try again whenever you're ready.</p>
-
-    <div class="reassurance">
-      <h4>✅ Good to Know</h4>
-      <ul>
-        <li><span class="icon">💳</span> No charge was made — your payment details are safe.</li>
-        <li><span class="icon">🔓</span> Your free trial is still available and waiting for you.</li>
-        <li><span class="icon">🔒</span> You can upgrade anytime — no pressure, no deadlines.</li>
-        <li><span class="icon">📧</span> Questions? We're happy to help before you commit.</li>
-      </ul>
-    </div>
-
-    <div class="note">
-      💬 <strong>Have a question before buying?</strong> Reach out at <a href="mailto:rsweatland@orcannus.com" style="color:var(--teal);font-weight:700;">rsweatland@orcannus.com</a> — we typically respond the same day.
-    </div>
-
-    <div class="actions">
-      <a class="btn-primary" href="safeguard-landing.html#checkout">🛒 Try Again</a>
-      <a class="btn-secondary" href="safeguard-app.html">🛡️ Use Free Trial</a>
-    </div>
-    <br>
-    <a class="btn-back" href="safeguard-landing.html">← Back to SafeGuard</a>
-  </div>
-</main>
-
-<footer>
-  © 2026 SafeGuard by Orcannus Technologies · <a href="mailto:rsweatland@orcannus.com" style="color:var(--text-soft);">rsweatland@orcannus.com</a>
-</footer>
-
+  <footer>
+    &copy; 2026 ORCANNUS TECHNOLOGIES &nbsp;|&nbsp;
+    <a href="mailto:rsweatland@orcannus.com">rsweatland@orcannus.com</a>
+  </footer>
+</div>
 </body>
 </html>
